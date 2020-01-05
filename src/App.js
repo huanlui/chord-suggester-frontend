@@ -3,15 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import ToNumber from './category_to_number.json'
 import ToChord from './number_to_category.json'
-import ModelArtifact from './my_tfjs_model/model.json'
 import * as tf from '@tensorflow/tfjs';
-
-const ioHandler = {
-  load: () => ModelArtifact
-}
+import Button from '@material-ui/core/Button';
+import ChatIcon from '@material-ui/icons/Chat';
 
 function App() {
   const [model, setModel] = useState();
+  const [jsonFile, setJsonFile] = useState();
 
   const pad_array = (arr,len,fill) => {
     if(arr.length >= len) return arr;
@@ -21,11 +19,6 @@ function App() {
 
     return [...pad,...arr];
   }
-
-  const getModelOld = async () => {
-    const loadedModel = await tf.loadLayersModel(ioHandler);
-    return loadedModel;
-  };
 
   const getModel = async () => {
     const uploadJSONInput = document.getElementById('upload-json');
@@ -42,7 +35,6 @@ function App() {
       const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
       const pachebelNumbers = pachebel.map(chord => ToNumber[chord])
       const paddedPachebel = pad_array(pachebelNumbers,20,0)
-      console.log(ModelArtifact)
 
       console.log(paddedPachebel)
       let tensor = tf.tensor1d(paddedPachebel, 'int32').expandDims(0);
@@ -75,6 +67,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        {jsonFile}
+      <Button
+        variant="contained"
+        component="label"
+        color="primary"
+      >
+        Upload File
+        <input
+          onChange={event => setJsonFile(event.target.value)}
+          type="file"
+          style={{ display: "none" }}
+        />
+        </Button>
         <input type="file" id="upload-json"/>
         <input type="file" id="upload-weights"/>
         <button onClick={run}>Click</button>
@@ -92,6 +97,7 @@ function App() {
         >
           Learn React
         </a>
+        <ChatIcon></ChatIcon>
       </header>
     </div>
   );
