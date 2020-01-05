@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core'
 import ChordCard from './ChordCard';
+import CustomChordCard from './CustomChordCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +23,7 @@ const SuggestedChordSelector = () => {
           <ChordCard chordName="D#"></ChordCard>
         </Grid>
         <Grid item xs={4}>
-        <ChordCard chordName="F7"></ChordCard>
+        <CustomChordCard></CustomChordCard>
         </Grid>
       </React.Fragment>
     );
@@ -32,7 +31,6 @@ const SuggestedChordSelector = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5" color='secondary'>Suggested chords</Typography>
       <Grid container spacing={1} style={{maxWidth:800}}>
         <Grid container item xs={12} spacing={3}>
           <FormRow />

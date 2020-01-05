@@ -7,6 +7,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import newId from '../utils/NewId';
 import {playChord} from '../utils/Player';
+import CustomChordSelector from './CustomChordSelector';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const ChordCard = ({chordName}) => {
+const CustomChordCard = () => {
     const randomId = newId('div-');
 
     const drawChord = () => {
@@ -67,11 +68,10 @@ const ChordCard = ({chordName}) => {
 
     return (
       <Paper className={classes.paper}>
-              <Typography variant="h6" color='primary'>{chordName}</Typography>
-              <div style={{textAlign:'center', marginTop:7}}>
+              <CustomChordSelector chordAdded={undefined}></CustomChordSelector>
+              <div style={{textAlign:'center'}}>
                 <div id={randomId} style={{width: 100, display:'inline-block'}}></div>
               </div>
-              <Typography>Probability: 0.5%</Typography>
               <Tooltip title="Listen">
                 <IconButton aria-label="Listen" onClick={() => playChord(["C4", "E4", "G5"])}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
@@ -86,4 +86,4 @@ const ChordCard = ({chordName}) => {
     );
   }
 
-  export default ChordCard;
+  export default CustomChordCard;

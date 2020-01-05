@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ToNumber from './dictionaries/category_to_number.json'
 import ToChord from './dictionaries/number_to_category.json'
 import * as tf from '@tensorflow/tfjs';
-import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import CustomChordSelector from './components/CustomChordSelector';
 import SuggestedChordSelector from './components/SuggestedChordSelector';
 import Stepper from './components/Stepper';
 import ModelSelector from './components/ModelSelector'
@@ -15,7 +12,7 @@ import WidthsSelector from './components/WidthsSelector'
 const theme = createMuiTheme({
     palette: {
       text: {
-        primary: "#cfcfcf",
+        primary: "#4db6ac",
         secondary: "#707070"
       },
       primary: {
@@ -106,13 +103,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <header className="App-header">
-        <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
-        <ModelSelector display={activeStep === 0}></ModelSelector>
-        <WidthsSelector display={activeStep === 1}></WidthsSelector>
-
-          <Button onClick={run} color="secondary" variant="contained">Load</Button>
+          <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
+          <ModelSelector display={activeStep === 0}></ModelSelector>
+          <WidthsSelector display={activeStep === 1}></WidthsSelector>
           <div>{chords}</div>
-          <CustomChordSelector chordAdded={newChord => setChords(previous => [...previous, newChord])}></CustomChordSelector>
           <SuggestedChordSelector></SuggestedChordSelector>
         </header>
       </div>
