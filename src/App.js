@@ -5,10 +5,44 @@ import ToNumber from './category_to_number.json'
 import ToChord from './number_to_category.json'
 import * as tf from '@tensorflow/tfjs';
 import Button from '@material-ui/core/Button';
-import ChatIcon from '@material-ui/icons/Chat';
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import ChordSelector from './ChordSelector';
+
+const theme = createMuiTheme({
+    palette: {
+      text: {
+        primary: "#cfcfcf",
+        secondary: "#707070"
+      },
+      primary: {
+        light: '#82e9de',
+        main: '#4db6ac',
+        dark: '#00867d',
+        contrastText: '#e8f5e9',
+      },
+      secondary: {
+        light: '#cfcfcf',
+        main: '#9e9e9e',
+        dark: '#707070',
+        contrastText: '#fafafa',
+      },
+    },
+  });
+
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 
 function App() {
   const [model, setModel] = useState();
+  const [chords, setChords] = useState([]);
   const [jsonFile, setJsonFile] = useState();
 
   const pad_array = (arr,len,fill) => {
@@ -65,41 +99,42 @@ function App() {
   
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {jsonFile}
-      <Button
-        variant="contained"
-        component="label"
-        color="primary"
-      >
-        Upload File
-        <input
-          onChange={event => setJsonFile(event.target.value)}
-          type="file"
-          style={{ display: "none" }}
-        />
-        </Button>
-        <input type="file" id="upload-json"/>
-        <input type="file" id="upload-weights"/>
-        <button onClick={run}>Click</button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-          {ToNumber['C']}
-          {ToChord[3]}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <header className="App-header">
+          {jsonFile}
+        <Button
+          variant="contained"
+          component="label"
+          color="primary"
         >
-          Learn React
-        </a>
-        <ChatIcon></ChatIcon>
-      </header>
-    </div>
+          Select model file
+          <input
+            type="file"
+            style={{ display: "none" }}
+            id="upload-json"
+            accept=".json"
+          />
+          </Button>
+          <Button
+          variant="contained"
+          component="label"
+          color="primary"
+        >
+          Select width file
+          <input
+            type="file"
+            style={{ display: "none" }}
+            id="upload-weights"
+            accept=".bin"
+          />
+          </Button>
+          <Button onClick={run} color="secondary" variant="contained">Load</Button>
+          <div>{chords}</div>
+          <ChordSelector chordAdded={newChord => setChords(previous => [...previous, newChord])}></ChordSelector>
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 
