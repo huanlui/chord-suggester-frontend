@@ -4,10 +4,10 @@ import ToNumber from './dictionaries/category_to_number.json'
 import ToChord from './dictionaries/number_to_category.json'
 import * as tf from '@tensorflow/tfjs';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import SuggestedChordSelector from './components/SuggestedChordSelector';
 import Stepper from './components/Stepper';
 import ModelSelector from './components/ModelSelector'
 import WidthsSelector from './components/WidthsSelector'
+import Composer from './components/Composer'
 
 const theme = createMuiTheme({
     palette: {
@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const [model, setModel] = useState();
-  const [chords, setChords] = useState([]);
   const [activeStep, setActiveStep] = React.useState(0);
 
   const pad_array = (arr,len,fill) => {
@@ -106,8 +105,7 @@ function App() {
           <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
           <ModelSelector display={activeStep === 0}></ModelSelector>
           <WidthsSelector display={activeStep === 1}></WidthsSelector>
-          <div>{chords}</div>
-          <SuggestedChordSelector></SuggestedChordSelector>
+          {activeStep === 2 ? <Composer></Composer> : null}
         </header>
       </div>
     </ThemeProvider>
