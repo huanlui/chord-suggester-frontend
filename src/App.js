@@ -39,7 +39,7 @@ function App() {
     const  loadModel = async () => {
       const loadedModel = await getModel();
 
-      const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A', 'Bm'];
+      const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
       const pachebelNumbers = pachebel.map(chord => ToNumber[chord])
       const paddedPachebel = pad_array(pachebelNumbers,20,0)
       console.log(ModelArtifact)
@@ -58,6 +58,8 @@ function App() {
 
       
       chordProbabilities = chordProbabilities.sort( (left, right) => right.probability - left.probability);
+
+      chordProbabilities = chordProbabilities.slice(0,10);
       console.log(chordProbabilities);
       
     }
