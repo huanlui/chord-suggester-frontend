@@ -6,9 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import ToNote from './value_to_note.json'
+import ToNote from './../dictionaries/value_to_note.json'
 import { range } from 'lodash'
-import Qualities from './unique_qualities.json'
+import Qualities from './../dictionaries/unique_qualities.json'
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const useStyles = makeStyles(theme => ({
