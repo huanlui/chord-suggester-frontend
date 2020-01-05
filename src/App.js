@@ -7,6 +7,7 @@ import * as tf from '@tensorflow/tfjs';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CustomChordSelector from './CustomChordSelector';
+import SuggestedChordSelector from './SuggestedChordSelector';
 
 const theme = createMuiTheme({
     palette: {
@@ -132,6 +133,7 @@ function App() {
           <Button onClick={run} color="secondary" variant="contained">Load</Button>
           <div>{chords}</div>
           <CustomChordSelector chordAdded={newChord => setChords(previous => [...previous, newChord])}></CustomChordSelector>
+          <SuggestedChordSelector></SuggestedChordSelector>
         </header>
       </div>
     </ThemeProvider>
