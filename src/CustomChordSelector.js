@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import ToNote from './value_to_note.json'
 import { range } from 'lodash'
 import Qualities from './unique_qualities.json'
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const ChordSelector = ({chordAdded}) => {
+const CustomChordSelector = ({chordAdded}) => {
     const classes = useStyles();
     const [root, setRoot] = useState('');
     const [type, setType] = useState('');
@@ -35,7 +36,7 @@ const ChordSelector = ({chordAdded}) => {
             <div>
                 <FormControl className={classes.formControl}>
                     <InputLabel>
-                        Select a chord:
+                        Custom chord:
                     </InputLabel>
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -68,4 +69,4 @@ const ChordSelector = ({chordAdded}) => {
     )
 };
 
-export default ChordSelector;
+export default CustomChordSelector;
