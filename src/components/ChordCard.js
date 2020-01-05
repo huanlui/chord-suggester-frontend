@@ -6,7 +6,7 @@ import { Typography, Tooltip, IconButton } from '@material-ui/core'
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import newId from '../utils/NewId';
-import playChord from '../utils/Player';
+import {playChord} from '../utils/Player';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -73,7 +73,7 @@ const ChordCard = ({chordName}) => {
               </div>
               <Typography>Probability: 0.5%</Typography>
               <Tooltip title="Listen">
-                <IconButton aria-label="Listen" onClick={() => playChord(["C4", "E4", "Gb5"])}>
+                <IconButton aria-label="Listen" onClick={() => playChord(["C4", "E4", "G5"])}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>
