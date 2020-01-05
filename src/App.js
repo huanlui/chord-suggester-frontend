@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CustomChordSelector from './components/CustomChordSelector';
 import SuggestedChordSelector from './components/SuggestedChordSelector';
+import Stepper from './components/Stepper';
 
 const theme = createMuiTheme({
     palette: {
@@ -45,6 +46,7 @@ function App() {
   const [model, setModel] = useState();
   const [chords, setChords] = useState([]);
   const [jsonFile, setJsonFile] = useState();
+  const [activeStep, setActiveStep] = React.useState(0);
 
   const pad_array = (arr,len,fill) => {
     if(arr.length >= len) return arr;
@@ -102,6 +104,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+        <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
         <header className="App-header">
           {jsonFile}
         <Button
