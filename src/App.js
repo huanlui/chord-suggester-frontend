@@ -9,6 +9,8 @@ import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/sty
 import CustomChordSelector from './components/CustomChordSelector';
 import SuggestedChordSelector from './components/SuggestedChordSelector';
 import Stepper from './components/Stepper';
+import ModelSelector from './components/ModelSelector'
+import WidthsSelector from './components/WidthsSelector'
 
 const theme = createMuiTheme({
     palette: {
@@ -45,7 +47,6 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const [model, setModel] = useState();
   const [chords, setChords] = useState([]);
-  const [jsonFile, setJsonFile] = useState();
   const [activeStep, setActiveStep] = React.useState(0);
 
   const pad_array = (arr,len,fill) => {
@@ -104,35 +105,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
         <header className="App-header">
-          {jsonFile}
-        <Button
-          variant="contained"
-          component="label"
-          color="primary"
-        >
-          Select model file
-          <input
-            type="file"
-            style={{ display: "none" }}
-            id="upload-json"
-            accept=".json"
-          />
-          </Button>
-          <Button
-          variant="contained"
-          component="label"
-          color="primary"
-        >
-          Select width file
-          <input
-            type="file"
-            style={{ display: "none" }}
-            id="upload-weights"
-            accept=".bin"
-          />
-          </Button>
+        <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
+        <ModelSelector display={activeStep === 0}></ModelSelector>
+        <WidthsSelector display={activeStep === 1}></WidthsSelector>
+
           <Button onClick={run} color="secondary" variant="contained">Load</Button>
           <div>{chords}</div>
           <CustomChordSelector chordAdded={newChord => setChords(previous => [...previous, newChord])}></CustomChordSelector>

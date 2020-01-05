@@ -10,6 +10,12 @@ const useStyles = makeStyles({
       maxWidth: 400,
       flexGrow: 1,
     },
+    button: {
+        "&$buttonDisabled": {
+            color: '#707070'
+        }
+      },
+    buttonDisabled: {},
   });
 
 const Stepper = ({activeStep, setActiveStep}) => {
@@ -28,19 +34,20 @@ const Stepper = ({activeStep, setActiveStep}) => {
         <div style={{textAlign:'center'}}>
             <div style={{width: 400, display:'inline-block'}}>
                 <MobileStepper
+                    style={{background: '#282c34'}}
                     variant="dots"
                     steps={6}
                     position="static"
                     activeStep={activeStep}
                     className={classes.root}
                     nextButton={
-                    <Button color='primary' size="small" onClick={handleNext} disabled={activeStep === 5}>
+                    <Button color='primary' size="small" onClick={handleNext} disabled={activeStep === 5} classes={{ root: classes.button, disabled: classes.buttonDisabled } }>
                         Next
                         {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                     </Button>
                     }
                     backButton={
-                    <Button color='primary' size="small" onClick={handleBack} disabled={activeStep === 0}>
+                    <Button color='primary' size="small" onClick={handleBack} disabled={activeStep === 0} classes={{ root: classes.button, disabled: classes.buttonDisabled } }>
                         {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                         Back
                     </Button>
