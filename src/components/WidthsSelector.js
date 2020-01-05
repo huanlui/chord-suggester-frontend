@@ -6,7 +6,7 @@
     variant="contained"
     component="label"
     color="primary"
-    style={{visibility: display ? 'visible' : 'hidden' }} 
+    style={{display: display ? '' : 'none' }} 
   >
     Select width file
     <input
