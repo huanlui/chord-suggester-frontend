@@ -19,24 +19,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const drawChord2 = ()  => {
-  const notes = ['C4', 'E4', 'G4']
-  const VF = Vex.Flow;
-
-var vf = new VF.Factory({
-  renderer: {elementId: 'foo', width: 90, height: 110}
-});
-
-var score = vf.EasyScore();
-var system = vf.System();
-
-system.addStave({
-  voices: notes.map(note => score.voice(score.notes(`${note}/w`, {stem: 'up'})))
-}).addClef('treble').addTimeSignature('4/4');
-
-vf.draw();
-}
-
 const drawChord = () => {
   const VF = Vex.Flow;
 
@@ -63,7 +45,7 @@ stave.setContext(context).draw();
 var notes = [
   // new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
   // .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP))
-  new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "a/4"], duration: "w" })
+  new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" })
 ];
 
 // Create a voice in 4/4 and add above notes
@@ -71,7 +53,8 @@ var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
 voice.addTickables(notes);
 
 // Format and justify the notes to 400 pixels.
-var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
+const formatter = new VF.Formatter()
+formatter.joinVoices([voice]).format([voice], 400);
 
 // Render voice
 voice.draw(context, stave);
