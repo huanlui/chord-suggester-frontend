@@ -103,10 +103,14 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
+        </header>
+        <body>
+          <div>
           <ModelSelector display={activeStep === 0}></ModelSelector>
           <WidthsSelector display={activeStep === 1}></WidthsSelector>
           {activeStep === 2 ? <Composer></Composer> : null}
-        </header>
+          </div>
+        </body>
       </div>
     </ThemeProvider>
   );
