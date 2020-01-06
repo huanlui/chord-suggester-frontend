@@ -34,10 +34,10 @@ describe('Chord', () => {
     ${'C'}    | ${['C4', 'E4', 'G4']}
     ${'C#'}   | ${['C#4', 'F4', 'G#4']}
     ${'C#m'}  | ${['C#4', 'E4', 'G#4']}
-    ${'A'}    | ${['A4', 'C#5', 'E5']}
-    ${'Ab'}   | ${['Ab4', 'C5', 'Eb5']}
-    ${'Abm'}  | ${['Ab4', 'B4', 'Eb5']}
-    ${'Abm7'} | ${['Ab4', 'B4', 'Eb5', 'Gb5']}
+    ${'A'}    | ${['A3', 'C#4', 'E4']}
+    ${'Ab'}   | ${['Ab3', 'C4', 'Eb4']}
+    ${'Abm'}  | ${['Ab3', 'B3', 'Eb4']}
+    ${'Abm7'} | ${['Ab3', 'B3', 'Eb4', 'Gb4']}
     `('chord created from name "$name" has notes $expected_notes', ({name, expected_notes}) => {
         const sut = new Chord(name);
 

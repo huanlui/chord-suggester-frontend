@@ -25,8 +25,10 @@ export default class Chord {
 
         const accidentalToAvoid = this.root_name.includes('b') ? '#' : 'b';
 
+        const baseScale = root_value >=7 ? 3 : 4;
+
         const notes = absolute_quality_components.map(component => {
-            const suffix = 4 + Math.floor(component / Constants.NumberOfNotes);
+            const suffix = baseScale + Math.floor(component / Constants.NumberOfNotes);
             const note_name = ToNote[component % Constants.NumberOfNotes].find(name => !name.includes(accidentalToAvoid))
 
             return `${note_name}${suffix}`
@@ -35,7 +37,7 @@ export default class Chord {
         return notes;
     }
 
-    toVexChord() {
+    toVexChord(showCaption) {
         const VF = Vex.Flow;
 
         const plainNotes = this.notes.map(noteName => `${noteName[0]}/${noteName[noteName.length -1]}`); //G#4 -> G/4 
@@ -45,8 +47,14 @@ export default class Chord {
                                 .filter(tuple => tuple.noteName.length > 2)
                                 .map(tuple => ({...tuple, type: tuple.noteName[1]}));
 
+        console.log('plain', plainNotes);
+        console.log('accidentals', accidentals);
+
         const result = new VF.StaveNote({clef: "treble", keys: plainNotes, duration: "w" })
-        .addModifier(0, new Vex.Flow.Annotation(this.name).setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP));
+
+        if(showCaption) {
+            result.addModifier(0, new Vex.Flow.Annotation(this.name).setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP));
+        }
 
         accidentals.forEach(accidental => result.addAccidental(accidental.index, new VF.Accidental(accidental.type)))
         return result;
