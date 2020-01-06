@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Vex from 'vexflow'
 import Paper from '@material-ui/core/Paper';
+import Chord from '../utils/Chord';
 
 const Sheet = ({chords}) => {
     const useStyles = makeStyles(theme => ({
@@ -41,9 +42,8 @@ const Sheet = ({chords}) => {
         
         // Connect it to the rendering context and draw!
         stave.setContext(context).draw();
-
-        const notes = chords.map(chordName => new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation(chordName)
-        .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)))
+ 
+        const notes = chords.map(chordName => new Chord(chordName).toVexChord())
         
         // Create a voice in 4/4 and add above notes
         var voice = new VF.Voice({num_beats: notes.length * 4,  beat_value: 4});
