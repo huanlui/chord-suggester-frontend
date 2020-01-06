@@ -1,4 +1,4 @@
-import React , { useEffect } from 'react';
+import React , { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import * as Vex from 'vexflow'
@@ -8,6 +8,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import newId from '../utils/NewId';
 import {playChord} from '../utils/Player';
 import CustomChordSelector from './CustomChordSelector';
+import Chord from '../utils/Chord';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -18,6 +19,8 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const CustomChordCard = () => {
+    const [customChord, setCustomChord] = useState(new Chord('C'));
+
     const randomId = newId('div-');
 
     const drawChord = () => {
@@ -68,12 +71,12 @@ const CustomChordCard = () => {
 
     return (
       <Paper className={classes.paper}>
-              <CustomChordSelector chordAdded={undefined}></CustomChordSelector>
+              <CustomChordSelector chordSelected={setCustomChord}></CustomChordSelector>
               <div style={{textAlign:'center'}}>
                 <div id={randomId} style={{width: 100, display:'inline-block'}}></div>
               </div>
               <Tooltip title="Listen" arrow>
-                <IconButton aria-label="Listen" onClick={() => playChord(["C4", "E4", "G5"])}>
+                <IconButton aria-label="Listen" onClick={() => playChord(customChord.notes)}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>

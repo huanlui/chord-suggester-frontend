@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,6 +7,7 @@ import Select from '@material-ui/core/Select';
 import ToNote from './../dictionaries/value_to_note.json'
 import { range } from 'lodash'
 import Qualities from './../dictionaries/unique_qualities.json'
+import Chord from '../utils/Chord.js';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -18,13 +19,17 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const CustomChordSelector = ({chordAdded}) => {
+const CustomChordSelector = ({chordSelected}) => {
     const classes = useStyles();
     const [root, setRoot] = useState('C');
     const [type, setType] = useState('maj');
 
+    useEffect(() => {
+        chordSelected(getSelectedChord());
+    }, [root, type])
+
     const getSelectedChord = () => {
-        return `${root}${type === 'maj' ? '' : type}`
+        return new Chord(`${root}${type === 'maj' ? '' : type}`);
     }
 
     return (
