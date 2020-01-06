@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import * as Vex from 'vexflow'
 import Paper from '@material-ui/core/Paper';
 
-const Sheet = ({chords, setChords}) => {
+const Sheet = ({chords}) => {
     const useStyles = makeStyles(theme => ({
         paper: {
           padding: theme.spacing(1),
@@ -41,45 +41,12 @@ const Sheet = ({chords, setChords}) => {
         
         // Connect it to the rendering context and draw!
         stave.setContext(context).draw();
-        
-        //To add annotation : https://github.com/0xfe/vexflow/issues/292
-        var notes = [
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)),
-        ];
+
+        const notes = chords.map(chordName => new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation(chordName)
+        .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP)))
         
         // Create a voice in 4/4 and add above notes
-        var voice = new VF.Voice({num_beats: 64,  beat_value: 4});
+        var voice = new VF.Voice({num_beats: notes.length * 4,  beat_value: 4});
         voice.addTickables(notes);
         
         // Format and justify the notes to 400 pixels.

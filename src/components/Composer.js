@@ -4,11 +4,11 @@ import Sheet from './Sheet';
 import SheetOperations from './SheetOperations';
 
 const Composer = ({display}) => {
-    const [chords, setChords] = useState([]);
+    const [chords, setChords] = useState(['C', 'D']);
 
     return (
         <>
-          <Sheet chords={chords} setChords={setChords}></Sheet>
+          <Sheet chords={chords}></Sheet>
           <SheetOperations></SheetOperations>
           <SuggestedChordSelector></SuggestedChordSelector>
         </>
