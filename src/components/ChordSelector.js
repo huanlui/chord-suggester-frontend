@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SuggestedChordSelector = () => {
+const ChordSelector = () => {
   const classes = useStyles();
 
   const chord = new Chord('D#');
@@ -49,4 +49,4 @@ const SuggestedChordSelector = () => {
   );
 }
 
-export default SuggestedChordSelector;
+export default ChordSelector;

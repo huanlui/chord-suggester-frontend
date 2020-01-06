@@ -1,4 +1,4 @@
-import SuggestedChordSelector from './SuggestedChordSelector';
+import ChordSelector from './ChordSelector';
 import React, { useState } from 'react';
 import Sheet from './Sheet';
 import SheetActions from './SheetActions';
@@ -12,7 +12,7 @@ const Composer = ({display}) => {
         <>
           <Sheet chords={chords}></Sheet>
           <SheetActions></SheetActions>
-          <SuggestedChordSelector></SuggestedChordSelector>
+          <ChordSelector></ChordSelector>
         </>
     )
 }
