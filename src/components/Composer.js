@@ -2,9 +2,11 @@ import SuggestedChordSelector from './SuggestedChordSelector';
 import React, { useState } from 'react';
 import Sheet from './Sheet';
 import SheetOperations from './SheetOperations';
+import Chord from '../utils/Chord';
 
 const Composer = ({display}) => {
-    const [chords] = useState(['C', 'D']);
+    const initialChords = ['C', 'D'].map(chordName => new Chord(chordName));
+    const [chords] = useState(initialChords);
 
     return (
         <>
