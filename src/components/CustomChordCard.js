@@ -1,8 +1,7 @@
 import React , { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import * as Vex from 'vexflow'
-import { Typography, Tooltip, IconButton } from '@material-ui/core'
+import { Tooltip, IconButton } from '@material-ui/core'
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import newId from '../utils/NewId';
@@ -18,56 +17,19 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
+const chordWidth = 130;
+const chordHeight = 120;
+
 const CustomChordCard = () => {
-    const [customChord, setCustomChord] = useState(new Chord('C'));
-
-    const chordWidth = 130;
-    const chordHeight = 120;
-
+    const classes = useStyles();
     const randomId = newId('div-');
 
-    const drawChord = () => {
-        const VF = Vex.Flow;
-        
-        // Create an SVG renderer and attach it to the DIV element named "boo".
-        var div = document.getElementById(randomId)
-        div.innerHTML = '';
-        var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-        
-        // Size our svg:
-        renderer.resize(chordWidth,chordHeight);
-        
-        // And get a drawing context:
-        var context = renderer.getContext();
-        
-        // Create a stave at position 10, 40 of width 400 on the canvas.
-        var stave = new VF.Stave(0, 0, chordWidth - 5);
-       
-        // Add a clef and time signature.
-        stave.addClef("treble");//.addTimeSignature("4/4");
-        
-        // Connect it to the rendering context and draw!
-        stave.setContext(context).draw();
-        
-        const notes = [customChord.toVexChord()];
-        
-        // Create a voice in 4/4 and add above notes
-        var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
-        voice.addTickables(notes);
-        
-        // Format and justify the notes to 400 pixels.
-        const formatter = new VF.Formatter()
-        formatter.joinVoices([voice]).format([voice], 400);
-        
-        // Render voice
-        voice.draw(context, stave);
-        }
-
-    const classes = useStyles();
+    const [customChord, setCustomChord] = useState(new Chord('C'));
 
     useEffect(() => {
-      drawChord();
-    }, [customChord])
+      const div = document.getElementById(randomId);
+      customChord.draw(div,chordWidth, chordHeight);
+    }, [customChord, randomId])
 
     return (
       <Paper className={classes.paper} style={{minWidth:chordWidth + 10}}>
