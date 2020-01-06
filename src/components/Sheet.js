@@ -43,7 +43,7 @@ const Sheet = ({chords}) => {
         // Connect it to the rendering context and draw!
         stave.setContext(context).draw();
  
-        const notes = chords.map(chordName => new Chord(chordName).toVexChord())
+        const notes = chords.map(chordName => new Chord(chordName).toVexChord(true))
         
         // Create a voice in 4/4 and add above notes
         var voice = new VF.Voice({num_beats: notes.length * 4,  beat_value: 4});
