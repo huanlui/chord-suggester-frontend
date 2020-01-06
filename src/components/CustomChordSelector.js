@@ -43,7 +43,7 @@ const CustomChordSelector = ({chordSelected}) => {
                     value={root}
                     onChange={event => setRoot(event.target.value)}
                     >
-                    {range(0,11).map(value => <MenuItem key={value} value={ToNote[value][0]}>{ToNote[value][0]}</MenuItem>)}
+                    {range(0,12).map(value => <MenuItem key={value} value={ToNote[value][0]}>{ToNote[value][0]}</MenuItem>)}
                     </Select>
                 </FormControl>
                 <FormControl className={classes.formControl}>
