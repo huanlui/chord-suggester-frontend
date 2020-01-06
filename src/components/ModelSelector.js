@@ -1,7 +1,14 @@
  import React from 'react'
  import Button from '@material-ui/core/Button';
 
- const ModelSelector = ({display}) => {
+ const ModelSelector = ({display, onSelected}) => {
+    const inputId = 'upload-json';
+    
+    const modelSelected = () => {
+      const uploadJSONInput = document.getElementById(inputId);
+      onSelected(uploadJSONInput.files[0]);
+    }
+
     return (<Button
     variant="contained"
     component="label"
@@ -12,8 +19,9 @@
     <input
       type="file"
       style={{ display: "none" }}
-      id="upload-json"
+      id={inputId}
       accept=".json"
+      onChange={modelSelected}
     />
     </Button>)
  }

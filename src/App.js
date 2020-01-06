@@ -34,8 +34,21 @@ const theme = createMuiTheme({
 function App() {
   const initialSuggestedChords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'].map(chordName => new Chord(chordName));
 
-  const [activeStep, setActiveStep] = useState(2);
+  const [modelFile, setModelFile] = useState();
+  const [weightsFile, setWeightsFile] = useState();
+
+  const [activeStep, setActiveStep] = useState(0);
   const [suggestedChords, setSuggestedChords] = useState(initialSuggestedChords);
+
+  const onModelFileSelected = (selectedModelFile) => {
+    setActiveStep(1);
+    setModelFile(selectedModelFile);
+  }
+
+  const onWeightsFileSelected = (selectedWeightsFile) => {
+    setActiveStep(2);
+    setWeightsFile(selectedWeightsFile);
+  }
 
   const onChordsModified = useCallback((newChords) => {
       console.log(`New chords are ${newChords.map(chord => chord.name)}`)
@@ -54,7 +67,7 @@ function App() {
     const uploadJSONInput = document.getElementById('upload-json');
     const uploadWeightsInput = document.getElementById('upload-weights');
     const loadedModel = await tf.loadLayersModel(tf.io.browserFiles(
-    [uploadJSONInput.files[0], uploadWeightsInput.files[0]]));
+    [modelFile, weightsFile]));
     return loadedModel;
   }
 
@@ -94,6 +107,10 @@ function App() {
  
   document.body.style = 'background: #282c34;';
 
+  if(activeStep === 2) {
+    run();
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -101,8 +118,8 @@ function App() {
           <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
         </header>
         <div className="App-body">
-          <ModelSelector display={activeStep === 0}></ModelSelector>
-          <WidthsSelector display={activeStep === 1}></WidthsSelector>
+          <ModelSelector display={activeStep === 0} onSelected={onModelFileSelected}></ModelSelector>
+          <WidthsSelector display={activeStep === 1} onSelected={onWeightsFileSelected}></WidthsSelector>
           {activeStep === 2 ? <Composer suggestedChords={suggestedChords} onChordsModified={onChordsModified}></Composer> : null}
         </div>
       </div>

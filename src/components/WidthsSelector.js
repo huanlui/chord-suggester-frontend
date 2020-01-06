@@ -1,21 +1,29 @@
  import React from 'react'
  import Button from '@material-ui/core/Button';
 
- const WidthsSelector = ({display}) => {
+ const WeightsSelector = ({display, onSelected}) => {
+    const inputId = 'upload-weights';
+    
+    const modelSelected = () => {
+      const uploadJSONInput = document.getElementById(inputId);
+      onSelected(uploadJSONInput.files[0]);
+    }
+
     return (<Button
     variant="contained"
     component="label"
     color="primary"
     style={{display: display ? '' : 'none' }} 
   >
-    Select width file
+    Select weights file
     <input
       type="file"
       style={{ display: "none" }}
-      id="upload-weights"
+      id={inputId}
       accept=".bin"
+      onChange={modelSelected}
     />
     </Button>)
  }
 
- export default WidthsSelector;
+ export default WeightsSelector;
