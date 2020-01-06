@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChordSelector = ({suggestedChords}) => {
+const ChordSelector = ({suggestedChords, addChord}) => {
   const classes = useStyles();
 
    const createRow = (chords) => {
@@ -19,7 +19,7 @@ const ChordSelector = ({suggestedChords}) => {
       <React.Fragment>
         {chords.map(chord => (
           <Grid item xs={3}>
-          {chord ? <ChordCard chord={chord}></ChordCard> : <CustomChordCard></CustomChordCard>}
+          {chord ? <ChordCard chord={chord} addChord={addChord}></ChordCard> : <CustomChordCard  addChord={addChord}></CustomChordCard>}
         </Grid>
         ))}
       </React.Fragment>

@@ -23,7 +23,10 @@ const Composer = ({suggestedChords,onChordsModified}) => {
             removeLast={() => setChords(previousChords => previousChords.slice(0, -1) )}
             clear={() => setChords([])}
           ></SheetActions>
-          <ChordSelector suggestedChords={suggestedChords}></ChordSelector>
+          <ChordSelector 
+            suggestedChords={suggestedChords}
+            addChord={(chord) => setChords(previousChords => [...previousChords, chord])}
+          ></ChordSelector>
         </>
     )
 }

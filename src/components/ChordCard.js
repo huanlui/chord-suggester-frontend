@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 const sheetWidth = 130;
 const sheetHeight = 120;
 
-const ChordCard = ({chord}) => {
+const ChordCard = ({chord, addChord}) => {
     const classes = useStyles();
     const randomId = newId('div-');
 
@@ -41,7 +41,7 @@ const ChordCard = ({chord}) => {
                 </IconButton>
               </Tooltip>
               <Tooltip title="Add" arrow>
-                <IconButton aria-label="Add">
+                <IconButton aria-label="Add" onClick={() => addChord(chord)}>
                   <AddBoxIcon fontSize='large' color='primary'></AddBoxIcon>
                 </IconButton>
               </Tooltip>
