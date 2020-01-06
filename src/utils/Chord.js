@@ -56,34 +56,4 @@ export default class Chord {
         accidentals.forEach(accidental => result.addAccidental(accidental.index, new VF.Accidental(accidental.type)))
         return result;
     }
-
-    draw(div, width, height){
-        const VF = Vex.Flow;
-        
-        div.innerHTML = '';
-        var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-        
-        renderer.resize(width,height);
-        
-        var context = renderer.getContext();
-        
-        const stavePositionX  = 0;
-        const stavePositionY  = 0;
-        const staveWidth  = width - 5;
-        var stave = new VF.Stave(stavePositionX, stavePositionY, staveWidth);
-       
-        stave.addClef("treble");
-        
-        stave.setContext(context).draw();
-        
-        const notes = [this.toVexChord()];
-        
-        var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
-        voice.addTickables(notes);
-        
-        const formatter = new VF.Formatter()
-        formatter.joinVoices([voice]).format([voice], 400);
-        
-        voice.draw(context, stave);
-    }
 }

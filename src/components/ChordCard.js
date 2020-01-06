@@ -6,6 +6,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import newId from '../utils/NewId';
 import {playChord} from '../utils/Player';
+import drawChords from '../utils/Drawer';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -24,7 +25,7 @@ const ChordCard = ({chord}) => {
 
     useEffect(() => {
       const div = document.getElementById(randomId);
-      chord.draw(div,chordWidth, chordHeight);
+      drawChords([chord],div,chordWidth,chordHeight);
     }, [chord, randomId])
 
     return (

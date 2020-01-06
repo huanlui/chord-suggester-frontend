@@ -8,6 +8,7 @@ import newId from '../utils/NewId';
 import {playChord} from '../utils/Player';
 import CustomChordSelector from './CustomChordSelector';
 import Chord from '../utils/Chord';
+import drawChords from '../utils/Drawer';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -28,7 +29,7 @@ const CustomChordCard = () => {
 
     useEffect(() => {
       const div = document.getElementById(randomId);
-      customChord.draw(div,chordWidth, chordHeight);
+      drawChords([customChord], div,chordWidth, chordHeight);
     }, [customChord, randomId])
 
     return (
