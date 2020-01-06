@@ -72,12 +72,12 @@ const ChordCard = ({chordName}) => {
                 <div id={randomId} style={{width: 100, display:'inline-block'}}></div>
               </div>
               <Typography>Probability: 0.5%</Typography>
-              <Tooltip title="Listen">
+              <Tooltip title="Listen" arrow>
                 <IconButton aria-label="Listen" onClick={() => playChord(["C4", "E4", "G5"])}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Add">
+              <Tooltip title="Add" arrow>
                 <IconButton aria-label="Add">
                   <AddBoxIcon fontSize='large' color='primary'></AddBoxIcon>
                 </IconButton>

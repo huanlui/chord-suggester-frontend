@@ -7,17 +7,17 @@ import { playChords } from '../utils/Player';
 
 const SheetOperations = () => {
 return (<div>
-              <Tooltip title="Listen">
+              <Tooltip title="Listen" placement="top" arrow>
                 <IconButton aria-label="Listen" onClick={() => playChords([["C4", "E4", "G5"],["C4", "E4", "G5"]])}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Remove last chord">
+              <Tooltip title="Remove last chord" placement="top" arrow>
                 <IconButton aria-label="Remove last chord">
                   <BackspaceIcon fontSize='large' color='primary'></BackspaceIcon>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Clear composition">
+              <Tooltip title="Clear composition" placement="top" arrow>
                 <IconButton aria-label="Clear composition">
                   <DeleteForeverIcon fontSize='large' color='primary'></DeleteForeverIcon>
                 </IconButton>
