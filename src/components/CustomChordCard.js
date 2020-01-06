@@ -18,8 +18,8 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const chordWidth = 130;
-const chordHeight = 118.5;
+const sheetWidth = 130;
+const sheetHeight = 118.5;
 
 const CustomChordCard = () => {
     const classes = useStyles();
@@ -29,14 +29,14 @@ const CustomChordCard = () => {
 
     useEffect(() => {
       const div = document.getElementById(randomId);
-      drawChords([customChord], div,chordWidth, chordHeight);
+      drawChords([customChord], div,sheetWidth, sheetHeight);
     }, [customChord, randomId])
 
     return (
-      <Paper className={classes.paper} style={{minWidth:chordWidth + 10}}>
+      <Paper className={classes.paper} style={{minWidth:sheetWidth + 10}}>
               <CustomChordSelector chordSelected={setCustomChord}></CustomChordSelector>
               <div style={{textAlign:'center'}}>
-                <div id={randomId} style={{width: chordWidth, display:'inline-block'}}></div>
+                <div id={randomId} style={{width: sheetWidth, display:'inline-block'}}></div>
               </div>
               <Tooltip title="Listen" arrow>
                 <IconButton aria-label="Listen" onClick={() => playChord(customChord.notes)}>

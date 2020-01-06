@@ -16,8 +16,8 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-  const chordWidth = 130;
-  const chordHeight = 120;
+const sheetWidth = 130;
+const sheetHeight = 120;
 
 const ChordCard = ({chord}) => {
     const classes = useStyles();
@@ -25,7 +25,7 @@ const ChordCard = ({chord}) => {
 
     useEffect(() => {
       const div = document.getElementById(randomId);
-      drawChords([chord],div,chordWidth,chordHeight);
+      drawChords([chord],div,sheetWidth,sheetHeight);
     }, [chord, randomId])
 
     return (
