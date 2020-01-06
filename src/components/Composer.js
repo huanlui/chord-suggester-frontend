@@ -12,7 +12,7 @@ const Composer = ({suggestedChords,onChordsModified}) => {
     useEffect( () =>
     {
       onChordsModified(chords);
-    }, [chords]);
+    }, [chords, onChordsModified]);
 
 
     return (

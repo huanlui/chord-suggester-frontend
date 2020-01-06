@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import * as Vex from 'vexflow'
 import Paper from '@material-ui/core/Paper';
 import drawChords from '../utils/Drawer';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import ToNumber from './dictionaries/category_to_number.json'
 import ToChord from './dictionaries/number_to_category.json'
@@ -37,9 +37,9 @@ function App() {
   const [activeStep, setActiveStep] = useState(2);
   const [suggestedChords, setSuggestedChords] = useState(initialSuggestedChords);
 
-  const onChordsModified = (newChords) => {
-    console.log(`New chords are ${newChords.map(chord => chord.name)}`)
-  }
+  const onChordsModified = useCallback((newChords) => {
+      console.log(`New chords are ${newChords.map(chord => chord.name)}`)
+    },[]);
 
   const pad_array = (arr,len,fill) => {
     if(arr.length >= len) return arr;

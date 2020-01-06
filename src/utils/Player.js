@@ -31,7 +31,6 @@ const playChords = (chords) => {
     const convertedChords = chords.map( (chord, index) => [index, chord.notes]);
 
     var chordPart = new Tone.Part(function(time, chord){
-        console.log(chord)
 		synth.triggerAttackRelease(chord, "2n", time);
 	}, convertedChords ).start(0);
 
