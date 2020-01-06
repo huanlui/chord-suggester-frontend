@@ -12,9 +12,9 @@ export const loadModel = async (modelFile, weightsFile) => {
 
 export const getChordSuggestions = (model, chords) => {
       const numberSequence = chords.map(chord => ToNumber[chord.name])
-      const paddedSequence = pad_array(numberSequence,Constants.SequenceLength,0)
+      const sequenceWithFixedLength = ensureArrayLength(numberSequence,Constants.SequenceLength);
      
-      let tensor = tf.tensor1d(paddedSequence, 'int32').expandDims(0);
+      let tensor = tf.tensor1d(sequenceWithFixedLength, 'int32').expandDims(0);
       const prediction = model.predict(tensor)
       const values = prediction.dataSync();
 
@@ -33,11 +33,15 @@ export const getChordSuggestions = (model, chords) => {
       return chordProbabilities;
 }
 
-const pad_array = (arr,len,fill) => {
-    if(arr.length >= len) return arr;
+const ensureArrayLength = (array, desiredLength) => {
+    if(array.length < desiredLength) return pad_array(array,desiredLength,0);
 
-    const pad = new Array(len - arr.length);
+    return array.slice(array.length - desiredLength);;
+}
+
+const pad_array = (array,desiredLength,fill) => {
+    const pad = new Array(desiredLength - array.length);
     pad.fill(0)
 
-    return [...pad,...arr];
+    return [...pad,...array];
 }
