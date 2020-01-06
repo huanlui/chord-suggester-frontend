@@ -16,13 +16,16 @@ const SuggestedChordSelector = () => {
    const FormRow = () => {
     return (
       <React.Fragment>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <ChordCard chordName="C"></ChordCard>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <ChordCard chordName="D#"></ChordCard>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
+          <ChordCard chordName="D#"></ChordCard>
+        </Grid>
+        <Grid item xs={3}>
         <CustomChordCard></CustomChordCard>
         </Grid>
       </React.Fragment>
@@ -31,10 +34,7 @@ const SuggestedChordSelector = () => {
 
   return (
     <div className={classes.root} style={{display: 'inline-flex'}}>
-      <Grid container spacing={1} style={{maxWidth:800}}>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
+      <Grid container spacing={1} style={{maxWidth:900}}>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>
