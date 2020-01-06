@@ -15,7 +15,6 @@ const playChord = (chord) => {
       synth.triggerAttackRelease(chord, 1);
 }
 
-//Example: playChords([["C4", "E4", "G4"], ["F4", "A4", "C5"], ["F4", "A4", "C5"], ["C4", "E4", "G4"]])
 const playChords = (chords) => {
     var synth = new Tone.PolySynth(6, Tone.Synth, {
         "volume" : -8,
