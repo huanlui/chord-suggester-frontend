@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
 const CustomChordCard = () => {
     const [customChord, setCustomChord] = useState(new Chord('C'));
 
+    const chordWidth = 130;
+    const chordHeight = 120;
+
     const randomId = newId('div-');
 
     const drawChord = () => {
@@ -28,17 +31,18 @@ const CustomChordCard = () => {
         
         // Create an SVG renderer and attach it to the DIV element named "boo".
         var div = document.getElementById(randomId)
+        div.innerHTML = '';
         var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
         
         // Size our svg:
-        renderer.resize(90,80);
+        renderer.resize(chordWidth,chordHeight);
         
         // And get a drawing context:
         var context = renderer.getContext();
         
         // Create a stave at position 10, 40 of width 400 on the canvas.
-        var stave = new VF.Stave(0, -20, 80);
-        
+        var stave = new VF.Stave(0, 0, chordWidth - 5);
+       
         // Add a clef and time signature.
         stave.addClef("treble");//.addTimeSignature("4/4");
         
@@ -60,15 +64,16 @@ const CustomChordCard = () => {
         }
 
     const classes = useStyles();
+
     useEffect(() => {
       drawChord();
-    }, [])
+    }, [customChord])
 
     return (
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{minWidth:chordWidth + 10}}>
               <CustomChordSelector chordSelected={setCustomChord}></CustomChordSelector>
               <div style={{textAlign:'center'}}>
-                <div id={randomId} style={{width: 100, display:'inline-block'}}></div>
+                <div id={randomId} style={{width: chordWidth, display:'inline-block'}}></div>
               </div>
               <Tooltip title="Listen" arrow>
                 <IconButton aria-label="Listen" onClick={() => playChord(customChord.notes)}>

@@ -9,10 +9,13 @@ import { range } from 'lodash'
 import Qualities from './../dictionaries/unique_qualities.json'
 import Chord from '../utils/Chord.js';
 
+const typeWidth = 120;
+
 const useStyles = makeStyles(theme => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 70
+      minWidth: 10,
+      maxWidth:typeWidth
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -46,7 +49,7 @@ const CustomChordSelector = ({chordSelected}) => {
                     {range(0,12).map(value => <MenuItem key={value} value={ToNote[value][0]}>{ToNote[value][0]}</MenuItem>)}
                     </Select>
                 </FormControl>
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.formControl} style={{width:typeWidth}}>
                     <InputLabel id="type-label">Type</InputLabel>
                     <Select
                     labelId="type-label"
