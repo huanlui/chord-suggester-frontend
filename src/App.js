@@ -32,7 +32,7 @@ const theme = createMuiTheme({
   });
 
 function App() {
-  const initialSuggestedChords = ['C', 'D', 'E'].map(chordName => new Chord(chordName));
+  const initialSuggestedChords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'].map(chordName => new Chord(chordName));
 
   const [activeStep, setActiveStep] = useState(2);
   const [suggestedChords, setSuggestedChords] = useState(initialSuggestedChords);

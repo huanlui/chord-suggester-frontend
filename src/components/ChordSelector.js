@@ -11,26 +11,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChordSelector = () => {
+const ChordSelector = ({suggestedChords}) => {
   const classes = useStyles();
 
-  const chord = new Chord('D#');
-
-   const FormRow = () => {
+   const createRow = (chords) => {
     return (
       <React.Fragment>
-        <Grid item xs={3}>
-          <ChordCard chord={chord}></ChordCard>
+        {chords.map(chord => (
+          <Grid item xs={3}>
+          {chord ? <ChordCard chord={chord}></ChordCard> : <CustomChordCard></CustomChordCard>}
         </Grid>
-        <Grid item xs={3}>
-          <ChordCard chord={chord}></ChordCard>
-        </Grid>
-        <Grid item xs={3}>
-          <ChordCard chord={chord}></ChordCard>
-        </Grid>
-        <Grid item xs={3}>
-        <CustomChordCard></CustomChordCard>
-        </Grid>
+        ))}
       </React.Fragment>
     );
   }
@@ -39,10 +30,10 @@ const ChordSelector = () => {
     <div className={classes.root} style={{display: 'inline-flex'}}>
       <Grid container spacing={1} style={{maxWidth:1000}}>
         <Grid container item xs={12} spacing={2}>
-          <FormRow />
+          {createRow(suggestedChords.slice(0,4))}
         </Grid>
         <Grid container item xs={12} spacing={2}>
-          <FormRow />
+          {createRow([...suggestedChords.slice(4,7),null])}
         </Grid>
       </Grid>
     </div>
