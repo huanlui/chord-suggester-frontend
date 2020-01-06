@@ -21,7 +21,8 @@ const Sheet = ({chords}) => {
 
     const width = 1100;
 
-    const drawChord = () => {
+    useEffect(() => {
+      const drawChord = () => {
         const VF = Vex.Flow;
         
         // Create an SVG renderer and attach it to the DIV element named "boo".
@@ -56,10 +57,8 @@ const Sheet = ({chords}) => {
         // Render voice
         voice.draw(context, stave);
         }
-
-    useEffect(() => {
       drawChord();
-    }, [])
+    }, [chords])
 
     return (
         <Paper className={classes.paper}>

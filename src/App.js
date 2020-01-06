@@ -3,7 +3,7 @@ import './App.css';
 import ToNumber from './dictionaries/category_to_number.json'
 import ToChord from './dictionaries/number_to_category.json'
 import * as tf from '@tensorflow/tfjs';
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Stepper from './components/Stepper';
 import ModelSelector from './components/ModelSelector'
 import WidthsSelector from './components/WidthsSelector'
@@ -30,20 +30,8 @@ const theme = createMuiTheme({
     },
   });
 
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-
 function App() {
-  const [model, setModel] = useState();
-  const [activeStep, setActiveStep] = React.useState(2);
+  const [activeStep, setActiveStep] = useState(2);
 
   const pad_array = (arr,len,fill) => {
     if(arr.length >= len) return arr;

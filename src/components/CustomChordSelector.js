@@ -28,12 +28,8 @@ const CustomChordSelector = ({chordSelected}) => {
     const [type, setType] = useState('maj');
 
     useEffect(() => {
-        chordSelected(getSelectedChord());
-    }, [root, type])
-
-    const getSelectedChord = () => {
-        return new Chord(`${root}${type === 'maj' ? '' : type}`);
-    }
+        chordSelected(new Chord(`${root}${type === 'maj' ? '' : type}`));
+    }, [root, type, chordSelected])
 
     return (
         <>

@@ -47,9 +47,6 @@ export default class Chord {
                                 .filter(tuple => tuple.noteName.length > 2)
                                 .map(tuple => ({...tuple, type: tuple.noteName[1]}));
 
-        console.log('plain', plainNotes);
-        console.log('accidentals', accidentals);
-
         const result = new VF.StaveNote({clef: "treble", keys: plainNotes, duration: "w" })
 
         if(showCaption) {

@@ -29,7 +29,7 @@ const Stepper = ({activeStep, setActiveStep}) => {
     const handleBack = () => {
       setActiveStep(prevActiveStep => prevActiveStep - 1);
     };
-    console.log('stepper')
+
     return (
         <div style={{textAlign:'center'}}>
             <div style={{width: 400, display:'inline-block'}}>

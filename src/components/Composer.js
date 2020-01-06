@@ -4,7 +4,7 @@ import Sheet from './Sheet';
 import SheetOperations from './SheetOperations';
 
 const Composer = ({display}) => {
-    const [chords, setChords] = useState(['C', 'D']);
+    const [chords] = useState(['C', 'D']);
 
     return (
         <>

@@ -1,7 +1,6 @@
 import React , { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import * as Vex from 'vexflow'
 import { Typography, Tooltip, IconButton } from '@material-ui/core'
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
