@@ -2,19 +2,9 @@ import ChordSelector from './ChordSelector';
 import React, { useState, useEffect } from 'react';
 import Sheet from './Sheet';
 import SheetActions from './SheetActions';
-import Chord from '../utils/Chord';
 import { playChords } from '../utils/Player';
 
-const Composer = ({suggestedChords,onChordsModified}) => {
-    const initialChords = ['C', 'D'].map(chordName => new Chord(chordName));
-    const [chords, setChords] = useState(initialChords);
-
-    useEffect( () =>
-    {
-      onChordsModified(chords);
-    }, [chords, onChordsModified]);
-
-
+const Composer = ({chordSuggestions,chords,setChords}) => {
     return (
         <>
           <Sheet chords={chords}></Sheet>
@@ -24,7 +14,7 @@ const Composer = ({suggestedChords,onChordsModified}) => {
             clear={() => setChords([])}
           ></SheetActions>
           <ChordSelector 
-            suggestedChords={suggestedChords}
+            chordSuggestions={chordSuggestions}
             addChord={(chord) => setChords(previousChords => [...previousChords, chord])}
           ></ChordSelector>
         </>

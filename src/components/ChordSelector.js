@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import ChordCard from './ChordCard';
+import ChordSuggestionCard from './ChordSuggestionCard';
 import CustomChordCard from './CustomChordCard';
 
 const useStyles = makeStyles(theme => ({
@@ -10,15 +10,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChordSelector = ({suggestedChords, addChord}) => {
+const ChordSelector = ({chordSuggestions, addChord}) => {
   const classes = useStyles();
 
-   const createRow = (chords) => {
+   const createRow = (chordSuggestionsSlice) => {
     return (
       <React.Fragment>
-        {chords.map((chord, index) => (
+        {chordSuggestionsSlice.map((suggestion, index) => (
           <Grid item xs={3} key={index}>
-          {chord ? <ChordCard chord={chord} addChord={addChord}></ChordCard> : <CustomChordCard  addChord={addChord}></CustomChordCard>}
+          {suggestion ? <ChordSuggestionCard suggestion={suggestion} addChord={addChord}></ChordSuggestionCard> : <CustomChordCard  addChord={addChord}></CustomChordCard>}
         </Grid>
         ))}
       </React.Fragment>
@@ -29,10 +29,10 @@ const ChordSelector = ({suggestedChords, addChord}) => {
     <div className={classes.root} style={{display: 'inline-flex'}}>
       <Grid container spacing={1} style={{maxWidth:1000}}>
         <Grid container item xs={12} spacing={2}>
-          {createRow(suggestedChords.slice(0,4))}
+          {createRow(chordSuggestions.slice(0,4))}
         </Grid>
         <Grid container item xs={12} spacing={2}>
-          {createRow([...suggestedChords.slice(4,7),null])}
+          {createRow([...chordSuggestions.slice(4,7),null])}
         </Grid>
       </Grid>
     </div>

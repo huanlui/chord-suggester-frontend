@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
 const sheetWidth = 130;
 const sheetHeight = 120;
 
-const ChordCard = ({chord, addChord}) => {
+const ChordSuggestionCard = ({suggestion, addChord}) => {
+    const chord = suggestion.chord;
     const classes = useStyles();
     const randomId = newId('div-');
 
@@ -34,7 +35,7 @@ const ChordCard = ({chord, addChord}) => {
               <div style={{textAlign:'center', marginTop:7}}>
                 <div id={randomId} style={{width: 100, display:'inline-block'}}></div>
               </div>
-              <Typography>Probability: 0.5%</Typography>
+              <Typography>Probability: {(suggestion.probability * 100).toFixed(2)}%</Typography>
               <Tooltip title="Listen" arrow>
                 <IconButton aria-label="Listen" onClick={() => playChord(chord)}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
@@ -49,4 +50,4 @@ const ChordCard = ({chord, addChord}) => {
     );
   }
 
-  export default ChordCard;
+  export default ChordSuggestionCard;

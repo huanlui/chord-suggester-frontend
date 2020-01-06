@@ -9,6 +9,8 @@ import ModelSelector from './components/ModelSelector'
 import WidthsSelector from './components/WidthsSelector'
 import Composer from './components/Composer'
 import Chord from './utils/Chord';
+import { Typography } from '@material-ui/core';
+import { loadModel, getChordSuggestions } from './utils/Model';
 
 const theme = createMuiTheme({
     palette: {
@@ -31,14 +33,38 @@ const theme = createMuiTheme({
     },
   });
 
-function App() {
+const App = () => {
+  document.body.style = 'background: #282c34;';
+
   const initialSuggestedChords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'].map(chordName => new Chord(chordName));
 
   const [modelFile, setModelFile] = useState();
   const [weightsFile, setWeightsFile] = useState();
+  const [model, setModel] = useState();
+
+  const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
+  const initialChords = pachebel.map(chordName => new Chord(chordName));
+  const [chords,setChords] = useState(initialChords)
 
   const [activeStep, setActiveStep] = useState(0);
-  const [suggestedChords, setSuggestedChords] = useState(initialSuggestedChords);
+  const [chordSuggestions, setChordSuggestions] = useState(initialSuggestedChords);
+
+  useEffect(() => {
+    if(!modelFile) return;
+    if(!weightsFile) return;
+
+    loadModel(modelFile, weightsFile).then(loadedModel => {
+      setModel(loadedModel);
+      setActiveStep(3);
+    })
+  }, [modelFile, weightsFile])
+
+  useEffect(() => {
+    if(!model) return;
+
+    const suggestions = getChordSuggestions(model, chords);
+    setChordSuggestions(suggestions);
+  }, [model, chords]);
 
   const onModelFileSelected = (selectedModelFile) => {
     setActiveStep(1);
@@ -49,68 +75,7 @@ function App() {
     setActiveStep(2);
     setWeightsFile(selectedWeightsFile);
   }
-
-  const onChordsModified = useCallback((newChords) => {
-      console.log(`New chords are ${newChords.map(chord => chord.name)}`)
-    },[]);
-
-  const pad_array = (arr,len,fill) => {
-    if(arr.length >= len) return arr;
-
-    const pad = new Array(len - arr.length);
-    pad.fill(0)
-
-    return [...pad,...arr];
-  }
-
-  const getModel = async () => {
-    const uploadJSONInput = document.getElementById('upload-json');
-    const uploadWeightsInput = document.getElementById('upload-weights');
-    const loadedModel = await tf.loadLayersModel(tf.io.browserFiles(
-    [modelFile, weightsFile]));
-    return loadedModel;
-  }
-
-  const run = () => {
-    const  loadModel = async () => {
-      const loadedModel = await getModel();
-
-      const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
-      const pachebelNumbers = pachebel.map(chord => ToNumber[chord])
-      const paddedPachebel = pad_array(pachebelNumbers,20,0)
-
-      console.log(paddedPachebel)
-      let tensor = tf.tensor1d(paddedPachebel, 'int32').expandDims(0);
-      const prediction = loadedModel.predict(tensor)
-      const values = prediction.dataSync();
-      const arr = Array.from(values);
-      console.log(arr[0])
-      console.log(Math.max(...arr))
-
-      arr.shift() //Remove probabiliy for null chord
-
-      let chordProbabilities = arr.map((value,index) => ({chord:ToChord[index+1], probability:value }));
-
-      
-      chordProbabilities = chordProbabilities.sort( (left, right) => right.probability - left.probability);
-
-      chordProbabilities = chordProbabilities.slice(0,10);
-      console.log(chordProbabilities);
-      
-    }
-    loadModel()
-  }
-  
-  useEffect( () => {
-
-  }, [])
  
-  document.body.style = 'background: #282c34;';
-
-  if(activeStep === 2) {
-    run();
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -120,7 +85,8 @@ function App() {
         <div className="App-body">
           <ModelSelector display={activeStep === 0} onSelected={onModelFileSelected}></ModelSelector>
           <WidthsSelector display={activeStep === 1} onSelected={onWeightsFileSelected}></WidthsSelector>
-          {activeStep === 2 ? <Composer suggestedChords={suggestedChords} onChordsModified={onChordsModified}></Composer> : null}
+          {activeStep === 2 ? <Typography>Loading...</Typography> : null}
+          {activeStep === 3 ? <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer> : null}
         </div>
       </div>
     </ThemeProvider>
