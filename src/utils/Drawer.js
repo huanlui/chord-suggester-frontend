@@ -25,7 +25,7 @@ const drawChords = (chords, div, width, height, showCaption) => {
     voice.addTickables(notes);
     
     const formatter = new VF.Formatter()
-    formatter.joinVoices([voice]).format([voice], 400);
+    formatter.joinVoices([voice]).format([voice], 1000);
     
     voice.draw(context, stave);
 };
