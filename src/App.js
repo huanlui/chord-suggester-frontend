@@ -96,7 +96,7 @@ function App() {
 
   }, [])
  
-  
+  document.body.style = 'background: #282c34;';
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,13 +104,11 @@ function App() {
         <header className="App-header">
           <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
         </header>
-        <body>
-          <div>
+        <div className="App-body">
           <ModelSelector display={activeStep === 0}></ModelSelector>
           <WidthsSelector display={activeStep === 1}></WidthsSelector>
           {activeStep === 2 ? <Composer></Composer> : null}
-          </div>
-        </body>
+        </div>
       </div>
     </ThemeProvider>
   );

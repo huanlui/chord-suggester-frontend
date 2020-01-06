@@ -30,7 +30,7 @@ const SuggestedChordSelector = () => {
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{display: 'inline-flex'}}>
       <Grid container spacing={1} style={{maxWidth:800}}>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
