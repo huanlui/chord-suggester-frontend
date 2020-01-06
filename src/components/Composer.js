@@ -1,5 +1,5 @@
 import ChordSelector from './ChordSelector';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Sheet from './Sheet';
 import SheetActions from './SheetActions';
 import { playChords } from '../utils/Player';

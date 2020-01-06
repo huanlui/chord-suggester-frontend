@@ -1,8 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import ToNumber from './dictionaries/category_to_number.json'
-import ToChord from './dictionaries/number_to_category.json'
-import * as tf from '@tensorflow/tfjs';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Stepper from './components/Stepper';
 import ModelSelector from './components/ModelSelector'
