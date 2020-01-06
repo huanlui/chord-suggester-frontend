@@ -8,6 +8,7 @@ import Stepper from './components/Stepper';
 import ModelSelector from './components/ModelSelector'
 import WidthsSelector from './components/WidthsSelector'
 import Composer from './components/Composer'
+import Chord from './utils/Chord';
 
 const theme = createMuiTheme({
     palette: {
@@ -31,7 +32,14 @@ const theme = createMuiTheme({
   });
 
 function App() {
+  const initialSuggestedChords = ['C', 'D', 'E'].map(chordName => new Chord(chordName));
+
   const [activeStep, setActiveStep] = useState(2);
+  const [suggestedChords, setSuggestedChords] = useState(initialSuggestedChords);
+
+  const onChordsModified = (newChords) => {
+    console.log(`New chords are ${newChords.map(chord => chord.name)}`)
+  }
 
   const pad_array = (arr,len,fill) => {
     if(arr.length >= len) return arr;
@@ -95,7 +103,7 @@ function App() {
         <div className="App-body">
           <ModelSelector display={activeStep === 0}></ModelSelector>
           <WidthsSelector display={activeStep === 1}></WidthsSelector>
-          {activeStep === 2 ? <Composer></Composer> : null}
+          {activeStep === 2 ? <Composer suggestedChords={suggestedChords} onChordsModified={onChordsModified}></Composer> : null}
         </div>
       </div>
     </ThemeProvider>
