@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const [model, setModel] = useState();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(2);
 
   const pad_array = (arr,len,fill) => {
     if(arr.length >= len) return arr;
