@@ -28,7 +28,7 @@ const playChords = (chords) => {
       //set the attributes using the set interface
       synth.set("detune", -1200);
 
-    const convertedChords = chords.map( (chord, index) => [index, chord]);
+    const convertedChords = chords.map( (chord, index) => [index, chord.notes]);
 
     var chordPart = new Tone.Part(function(time, chord){
         console.log(chord)

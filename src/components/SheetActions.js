@@ -4,11 +4,13 @@ import BackspaceIcon from '@material-ui/icons/Backspace';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { playChords } from '../utils/Player';
+import Chord from '../utils/Chord';
 
 const SheetActions = () => {
+  const chords = ['C', 'A'].map(chordName => new Chord(chordName));
 return (<div>
               <Tooltip title="Listen" placement="top" arrow>
-                <IconButton aria-label="Listen" onClick={() => playChords([["C4", "E4", "G5"],["C4", "E4", "G5"]])}>
+                <IconButton aria-label="Listen" onClick={() => playChords(chords)}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>
