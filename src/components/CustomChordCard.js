@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const chordWidth = 130;
-const chordHeight = 120;
+const chordHeight = 118.5;
 
 const CustomChordCard = () => {
     const classes = useStyles();
