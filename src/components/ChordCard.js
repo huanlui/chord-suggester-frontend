@@ -36,7 +36,7 @@ const ChordCard = ({chord, addChord}) => {
               </div>
               <Typography>Probability: 0.5%</Typography>
               <Tooltip title="Listen" arrow>
-                <IconButton aria-label="Listen" onClick={() => playChord(chord.notes)}>
+                <IconButton aria-label="Listen" onClick={() => playChord(chord)}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>

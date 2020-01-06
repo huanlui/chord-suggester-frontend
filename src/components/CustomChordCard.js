@@ -39,7 +39,7 @@ const CustomChordCard = ({addChord}) => {
                 <div id={randomId} style={{width: sheetWidth, display:'inline-block'}}></div>
               </div>
               <Tooltip title="Listen" arrow>
-                <IconButton aria-label="Listen" onClick={() => playChord(customChord.notes)}>
+                <IconButton aria-label="Listen" onClick={() => playChord(customChord)}>
                   <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
                 </IconButton>
               </Tooltip>

@@ -12,7 +12,7 @@ const playChord = (chord) => {
       //set the attributes using the set interface
       synth.set("detune", -1200);
       //play a chord
-      synth.triggerAttackRelease(chord, 1);
+      synth.triggerAttackRelease(chord.notes, 1);
 }
 
 const playChords = (chords) => {
