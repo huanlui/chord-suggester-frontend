@@ -45,12 +45,7 @@ const CustomChordCard = () => {
         // Connect it to the rendering context and draw!
         stave.setContext(context).draw();
         
-        //To add annotation : https://github.com/0xfe/vexflow/issues/292
-        var notes = [
-          // new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" }).addModifier(0, new Vex.Flow.Annotation("C")
-          // .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP))
-          new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "w" })
-        ];
+        const notes = [customChord.toVexChord()];
         
         // Create a voice in 4/4 and add above notes
         var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
