@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ChordCard from './ChordCard';
 import CustomChordCard from './CustomChordCard';
+import Chord from '../utils/Chord';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,17 +14,19 @@ const useStyles = makeStyles(theme => ({
 const SuggestedChordSelector = () => {
   const classes = useStyles();
 
+  const chord = new Chord('D#');
+
    const FormRow = () => {
     return (
       <React.Fragment>
         <Grid item xs={3}>
-          <ChordCard chordName="C"></ChordCard>
+          <ChordCard chord={chord}></ChordCard>
         </Grid>
         <Grid item xs={3}>
-          <ChordCard chordName="D#"></ChordCard>
+          <ChordCard chord={chord}></ChordCard>
         </Grid>
         <Grid item xs={3}>
-          <ChordCard chordName="D#"></ChordCard>
+          <ChordCard chord={chord}></ChordCard>
         </Grid>
         <Grid item xs={3}>
         <CustomChordCard></CustomChordCard>
