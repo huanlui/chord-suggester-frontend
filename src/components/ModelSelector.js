@@ -6,6 +6,7 @@
     
     const modelSelected = () => {
       const uploadJSONInput = document.getElementById(inputId);
+      console.log(uploadJSONInput.files[0]);
       onSelected(uploadJSONInput.files[0]);
     }
 

@@ -8,6 +8,28 @@ import Composer from './components/Composer'
 import Chord from './utils/Chord';
 import { Typography } from '@material-ui/core';
 import { loadModel, getChordSuggestions } from './utils/Model';
+import { loadFile } from './utils/FileLoader';
+
+//TODO
+
+/*
+- Poder escuchar varias veces la melodia.
+- Loading al cargar modelo. 
+- Puntos del stepper no se ven demasiado bien. 
+- Enlace a GitHub (front), Linkedin y Correo de TW en la página
+- Rellenar en fron más explicaciones aparte de la isntalación. Poner enlace a github de back.
+- Subir lo que falte de back. 
+- Evaluar el modelo!!!!!
+- Hacer memoria básica en markdon o pdf. 
+- Hacer memoria o explicación en la misma página  /https://rexxars.github.io/react-markdown/?
+- Algún grafiquillo más bonito. 
+- INCLUIR DATOS DE ALGUNA MANERA!!!
+
+
+
+
+
+*/
 
 const theme = createMuiTheme({
     palette: {
@@ -69,9 +91,29 @@ const App = () => {
   }
 
   const onWeightsFileSelected = (selectedWeightsFile) => {
+    console.log(selectedWeightsFile);
     setActiveStep(2);
     setWeightsFile(selectedWeightsFile);
   }
+
+
+const initModel = async () => {
+  const modelFile = await loadFile('model.json', 'application/json');
+  const weightsFile = await loadFile('group1-shard1of1.bin', 'application/octet-stream');
+  console.log(modelFile);
+  console.log(weightsFile);
+  const loadedModel = await loadModel(modelFile, weightsFile);
+
+  setModel(loadedModel);
+  setActiveStep(3);
+}
+
+  useEffect(() => {
+    if(activeStep !== 0) return;
+
+    initModel().then();
+
+  }, [activeStep])
  
   return (
     <ThemeProvider theme={theme}>
