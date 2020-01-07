@@ -3,10 +3,10 @@ import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Composer from './components/Composer'
 import Chord from './utils/Chord';
-import { Typography } from '@material-ui/core';
 import { getChordSuggestions, getModel } from './utils/Model';
 import Loading from './components/Loading';
 import logo from './img/Logo1.png'
+import SocialIcons from './components/SocialIcons';
 //TODO
 
 /*
@@ -80,6 +80,7 @@ const App = () => {
           <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer>
            :         
           <Loading/>}
+          <SocialIcons></SocialIcons>
         </div>
       </div>
     </ThemeProvider>
