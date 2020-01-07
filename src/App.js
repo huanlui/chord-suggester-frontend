@@ -11,6 +11,8 @@ import { Grid } from '@material-ui/core';
 //TODO
 
 /*
+are you sure to rempve all
+tempo
 - Rellenar en fron más explicaciones aparte de la isntalación. Poner enlace a github de back.
 - Subir lo que falte de back. 
 - Evaluar el modelo!!!!!
@@ -69,7 +71,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <div className="App">
         <header className="App-header">
-          <img src={logo} alt="Chord Suggester" style={{float:'left'}} />
+          <img src={logo} alt="Chord Suggester" />
         </header>
         <div className="App-body">
           <Grid
