@@ -4,16 +4,14 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Composer from './components/Composer'
 import Chord from './utils/Chord';
 import { getChordSuggestions, getModel } from './utils/Model';
-import Loading from './components/Loading';
 import logo from './img/Logo1.png'
 import SocialIcons from './components/SocialIcons';
+import { CircularProgress } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 //TODO
 
 /*
 - Poder escuchar varias veces la melodia.
-- Loading al cargar modelo. 
-- Puntos del stepper no se ven demasiado bien. 
-- Enlace a GitHub (front), Linkedin y Correo de TW en la página
 - Rellenar en fron más explicaciones aparte de la isntalación. Poner enlace a github de back.
 - Subir lo que falte de back. 
 - Evaluar el modelo!!!!!
@@ -76,10 +74,21 @@ const App = () => {
           <img src={logo} alt="Chord Suggester" style={{float:'left'}} />
         </header>
         <div className="App-body">
-          {chordSuggestions ? 
-          <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer>
-           :         
-          <Loading/>}
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: '80vh' }}
+            >
+              <Grid item xs={12}>    
+                {chordSuggestions ? 
+                <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer>
+                :         
+                <CircularProgress thickness={1} size={200}/>}
+              </Grid>   
+          </Grid>
           <SocialIcons></SocialIcons>
         </div>
       </div>
