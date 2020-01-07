@@ -42,15 +42,14 @@ const theme = createMuiTheme({
     },
   });
 
+const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
+const initialChords = pachebel.map(chordName => new Chord(chordName));
+
 const App = () => {
   document.body.style = 'background: #282c34;';
 
   const [model, setModel] = useState();
-
-  const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
-  const initialChords = pachebel.map(chordName => new Chord(chordName));
   const [chords,setChords] = useState(initialChords)
-
   const [chordSuggestions, setChordSuggestions] = useState();
 
   useEffect(() => {
