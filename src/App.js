@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Stepper from './components/Stepper';
 import Composer from './components/Composer'
 import Chord from './utils/Chord';
 import { Typography } from '@material-ui/core';
 import { getChordSuggestions, getModel } from './utils/Model';
-
+import Loading from './components/Loading';
+import logo from './img/Logo1.png'
 //TODO
 
 /*
@@ -47,26 +47,20 @@ const theme = createMuiTheme({
 const App = () => {
   document.body.style = 'background: #282c34;';
 
-  const initialSuggestedChords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'].map(chordName => new Chord(chordName));
-
   const [model, setModel] = useState();
 
   const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
   const initialChords = pachebel.map(chordName => new Chord(chordName));
   const [chords,setChords] = useState(initialChords)
 
-  const [activeStep, setActiveStep] = useState(0);
-  const [chordSuggestions, setChordSuggestions] = useState(initialSuggestedChords);
+  const [chordSuggestions, setChordSuggestions] = useState();
 
   useEffect(() => {
-    if(activeStep !== 0) return;
-
     getModel().then(loadedModel => {
       setModel(loadedModel);
-      setActiveStep(3);
     });
 
-  }, [activeStep])
+  }, [])
 
   useEffect(() => {
     if(!model) return;
@@ -79,11 +73,13 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <div className="App">
         <header className="App-header">
-          <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
+          <img src={logo} alt="Chord Suggester" style={{float:'left'}} />
         </header>
         <div className="App-body">
-          {activeStep === 2 ? <Typography>Loading...</Typography> : null}
-          {activeStep === 3 ? <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer> : null}
+          {chordSuggestions ? 
+          <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer>
+           :         
+          <Loading/>}
         </div>
       </div>
     </ThemeProvider>
