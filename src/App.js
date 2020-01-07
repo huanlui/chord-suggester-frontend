@@ -8,18 +8,16 @@ import logo from './img/Logo3.png'
 import SocialIcons from './components/SocialIcons';
 import { CircularProgress } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-//TODO
 
 /*
-are you sure to rempve all
-tempo
-- Rellenar en fron más explicaciones aparte de la isntalación. Poner enlace a github de back.
-- Subir lo que falte de back. 
+TODO
+- tempo selector
+- Rellenar en fron más explicaciones aparte de la isntalación. 
 - Evaluar el modelo!!!!!
 - Hacer memoria básica en markdon o pdf. 
 - Hacer memoria o explicación en la misma página  /https://rexxars.github.io/react-markdown/?
 - Algún grafiquillo más bonito. 
-- INCLUIR DATOS DE ALGUNA MANERA!!!
+- Incluir dataset con todas las features. 
 */
 
 const theme = createMuiTheme({
