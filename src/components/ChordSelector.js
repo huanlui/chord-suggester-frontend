@@ -28,10 +28,10 @@ const ChordSelector = ({chordSuggestions, addChord}) => {
   return (
     <div className={classes.root} style={{display: 'inline-flex'}}>
       <Grid container spacing={1} style={{maxWidth:1000}}>
-        <Grid container item xs={12} spacing={2}>
+        <Grid container item xs={12} spacing={1}>
           {createRow(chordSuggestions.slice(0,4))}
         </Grid>
-        <Grid container item xs={12} spacing={2}>
+        <Grid container item xs={12} spacing={1}>
           {createRow([...chordSuggestions.slice(4,7),null])}
         </Grid>
       </Grid>
