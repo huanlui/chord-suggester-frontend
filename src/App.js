@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Stepper from './components/Stepper';
-import ModelSelector from './components/ModelSelector'
-import WidthsSelector from './components/WidthsSelector'
 import Composer from './components/Composer'
 import Chord from './utils/Chord';
 import { Typography } from '@material-ui/core';
-import { loadModel, getChordSuggestions } from './utils/Model';
-import { loadFile } from './utils/FileLoader';
+import { getChordSuggestions, getModel } from './utils/Model';
 
 //TODO
 
@@ -24,11 +21,6 @@ import { loadFile } from './utils/FileLoader';
 - Hacer memoria o explicación en la misma página  /https://rexxars.github.io/react-markdown/?
 - Algún grafiquillo más bonito. 
 - INCLUIR DATOS DE ALGUNA MANERA!!!
-
-
-
-
-
 */
 
 const theme = createMuiTheme({
@@ -57,8 +49,6 @@ const App = () => {
 
   const initialSuggestedChords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'].map(chordName => new Chord(chordName));
 
-  const [modelFile, setModelFile] = useState();
-  const [weightsFile, setWeightsFile] = useState();
   const [model, setModel] = useState();
 
   const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
@@ -69,14 +59,14 @@ const App = () => {
   const [chordSuggestions, setChordSuggestions] = useState(initialSuggestedChords);
 
   useEffect(() => {
-    if(!modelFile) return;
-    if(!weightsFile) return;
+    if(activeStep !== 0) return;
 
-    loadModel(modelFile, weightsFile).then(loadedModel => {
+    getModel().then(loadedModel => {
       setModel(loadedModel);
       setActiveStep(3);
-    })
-  }, [modelFile, weightsFile])
+    });
+
+  }, [activeStep])
 
   useEffect(() => {
     if(!model) return;
@@ -84,36 +74,6 @@ const App = () => {
     const suggestions = getChordSuggestions(model, chords);
     setChordSuggestions(suggestions);
   }, [model, chords]);
-
-  const onModelFileSelected = (selectedModelFile) => {
-    setActiveStep(1);
-    setModelFile(selectedModelFile);
-  }
-
-  const onWeightsFileSelected = (selectedWeightsFile) => {
-    console.log(selectedWeightsFile);
-    setActiveStep(2);
-    setWeightsFile(selectedWeightsFile);
-  }
-
-
-const initModel = async () => {
-  const modelFile = await loadFile('model.json', 'application/json');
-  const weightsFile = await loadFile('group1-shard1of1.bin', 'application/octet-stream');
-  console.log(modelFile);
-  console.log(weightsFile);
-  const loadedModel = await loadModel(modelFile, weightsFile);
-
-  setModel(loadedModel);
-  setActiveStep(3);
-}
-
-  useEffect(() => {
-    if(activeStep !== 0) return;
-
-    initModel().then();
-
-  }, [activeStep])
  
   return (
     <ThemeProvider theme={theme}>
@@ -122,8 +82,6 @@ const initModel = async () => {
           <Stepper activeStep={activeStep} setActiveStep={setActiveStep}></Stepper>
         </header>
         <div className="App-body">
-          <ModelSelector display={activeStep === 0} onSelected={onModelFileSelected}></ModelSelector>
-          <WidthsSelector display={activeStep === 1} onSelected={onWeightsFileSelected}></WidthsSelector>
           {activeStep === 2 ? <Typography>Loading...</Typography> : null}
           {activeStep === 3 ? <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer> : null}
         </div>

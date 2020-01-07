@@ -3,6 +3,14 @@ import ToNumber from './../dictionaries/category_to_number.json'
 import ToChord from './../dictionaries/number_to_category.json'
 import Constants from './Constants.js';
 import Chord from './Chord';
+import { loadFile } from './FileLoader.js';
+
+export const getModel = async () => {
+    const modelFile = await loadFile('model.json', 'application/json');
+    const weightsFile = await loadFile('group1-shard1of1.bin', 'application/octet-stream');
+  
+    return await loadModel(modelFile, weightsFile);
+  }
 
 export const loadModel = async (modelFile, weightsFile) => {
     const loadedModel = await tf.loadLayersModel(tf.io.browserFiles(
