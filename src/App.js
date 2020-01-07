@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Composer from './components/Composer'
 import Chord from './utils/Chord';
 import { getChordSuggestions, getModel } from './utils/Model';
-import logo from './img/Logo1.png'
+import logo from './img/Logo3.png'
 import SocialIcons from './components/SocialIcons';
 import { CircularProgress } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
