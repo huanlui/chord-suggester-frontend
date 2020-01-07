@@ -11,7 +11,6 @@ import { Grid } from '@material-ui/core';
 //TODO
 
 /*
-- Poder escuchar varias veces la melodia.
 - Rellenar en fron más explicaciones aparte de la isntalación. Poner enlace a github de back.
 - Subir lo que falte de back. 
 - Evaluar el modelo!!!!!
