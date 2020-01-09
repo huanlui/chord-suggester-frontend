@@ -1,5 +1,5 @@
 
-# Chord Suggester (fron-end)
+# Chord Suggester (frontend)
 
 This repository contains the frontend for the DataScience project developed on https://github.com/huanlui/chord-suggester. 
 
