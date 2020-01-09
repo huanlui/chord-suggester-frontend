@@ -1,5 +1,5 @@
 {
-  "name": "chord-suggester-frontend",
+  "name": "ChordSuggester",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
