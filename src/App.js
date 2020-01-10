@@ -65,7 +65,7 @@ const App = () => {
 
     const suggestions = getChordSuggestions(model, chords, modelType.mustNormalise);
     setChordSuggestions(suggestions);
-  }, [model, chords]);
+  }, [model, chords, modelType]);
  
   return (
     <ThemeProvider theme={theme}>
