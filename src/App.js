@@ -18,6 +18,7 @@ TODO
 - Hacer memoria o explicación en la misma página  /https://rexxars.github.io/react-markdown/?
 - Algún grafiquillo más bonito. 
 - Incluir dataset con todas las features. 
+- selector de modelo
 */
 
 const theme = createMuiTheme({
@@ -52,7 +53,10 @@ const App = () => {
   const [chordSuggestions, setChordSuggestions] = useState();
 
   useEffect(() => {
-    getModel().then(loadedModel => {
+    const modelPath = 'models/tfjs_model_lstm_normalised__W_20_lr_0_0005_epochs=50_batch_128.h5/model.json';
+    const weightPath = 'models/tfjs_model_lstm_normalised__W_20_lr_0_0005_epochs=50_batch_128.h5/group1-shard1of1.bin'
+
+    getModel(modelPath, weightPath).then(loadedModel => {
       setModel(loadedModel);
     });
 

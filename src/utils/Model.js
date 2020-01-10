@@ -4,10 +4,11 @@ import ToChord from './../dictionaries/number_to_category.json'
 import Constants from './Constants.js';
 import Chord from './Chord';
 import { loadFile } from './FileLoader.js';
+import { getAverageValueInScale, transpose } from './Normaliser.js';
 
-export const getModel = async () => {
-    const modelFile = await loadFile('model.json', 'application/json');
-    const weightsFile = await loadFile('group1-shard1of1.bin', 'application/octet-stream');
+export const getModel = async (modelPath, weightPath) => {
+    const modelFile = await loadFile(modelPath, 'application/json');
+    const weightsFile = await loadFile(weightPath, 'application/octet-stream');
   
     return await loadModel(modelFile, weightsFile);
   }
@@ -19,7 +20,9 @@ export const loadModel = async (modelFile, weightsFile) => {
 }
 
 export const getChordSuggestions = (model, chords) => {
-      const numberSequence = chords.map(chord => ToNumber[chord.name])
+      const chordsMean = getAverageValueInScale(chords) || 0;
+      const chordNormalised = transpose(chords, -chordsMean);
+      const numberSequence = chordNormalised.map(chord => ToNumber[chord.name])
       const sequenceWithFixedLength = ensureArrayLength(numberSequence,Constants.SequenceLength);
      
       let tensor = tf.tensor1d(sequenceWithFixedLength, 'int32').expandDims(0);
@@ -33,7 +36,7 @@ export const getChordSuggestions = (model, chords) => {
           {
             probability:value, 
             name: ToChord[index+1], 
-            chord:new Chord(ToChord[index+1]) 
+            chord:new Chord(ToChord[index+1]).transpose(chordsMean)
           }));
       chordProbabilities = chordProbabilities.sort( (left, right) => right.probability - left.probability);
       chordProbabilities = chordProbabilities.slice(0,Constants.SuggestedChordNumber);

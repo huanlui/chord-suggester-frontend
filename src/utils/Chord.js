@@ -16,6 +16,34 @@ export default class Chord {
         this.notes = this.getNotes();
     }
 
+    transpose(semitones) {
+        let rootValue = (ToNumber[this.root_name] + semitones) % Constants.NumberOfNotes;
+        rootValue = rootValue >= 0 ? rootValue : Constants.NumberOfNotes + rootValue;
+        let chordName = `${ToNote[rootValue][0]}${this.quality_name}`;
+        return new Chord(chordName);
+    }
+
+    getXYPositionIn5thCircle() {
+        const quality_components = ToComponents[this.quality_name];
+
+        const isMajor = quality_components.indexOf(3) === -1;
+
+        let rootValue = ToNumber[this.root_name];
+        rootValue = isMajor ? rootValue : (rootValue + 3) % Constants.NumberOfNotes;
+
+        const position_in_5th_circle = (rootValue * 7) % Constants.NumberOfNotes;
+        const step_angle = 360.0 / Constants.NumberOfNotes;
+
+        const angle_in_5th_circle_degrees = position_in_5th_circle * step_angle;
+
+        const angle_in_5th_circle_radians = (angle_in_5th_circle_degrees * Math.PI) / 180
+
+        return [
+            Math.sin(angle_in_5th_circle_radians),
+            Math.cos(angle_in_5th_circle_radians)
+        ]
+    }
+
     getNotes() {
         const root_value = ToNumber[this.root_name];
         const quality_components = ToComponents[this.quality_name];
