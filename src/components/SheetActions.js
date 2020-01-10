@@ -55,12 +55,18 @@ return (
             <AccountTreeRoundedIcon fontSize='large' color='primary'></AccountTreeRoundedIcon>
           </IconButton>
         </Tooltip>
+        <Tooltip title="Transpose 1ST Up" placement="top" arrow>
+          <IconButton aria-label="Transpose 1ST Up" onClick={() => transpose(1)}>
+            <ExposurePlus1Icon fontSize='large' color='primary'></ExposurePlus1Icon>
+          </IconButton>
+        </Tooltip>
+
         <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        
+        onClose={() => setAnchorEl(null)}
       >
         {Object.values(ModelTypes).map(type =>
         <MenuItem 
@@ -68,13 +74,6 @@ return (
           onClick={() => selectModelType(type)}>{type.name}{(modelType && modelType.name === type.name)? " (selected) " : ""}
         </MenuItem>)}
       </Menu>
-        <Tooltip title="Transpose 1ST Up" placement="top" arrow>
-          <IconButton aria-label="Transpose 1ST Up" onClick={() => transpose(1)}>
-            <ExposurePlus1Icon fontSize='large' color='primary'></ExposurePlus1Icon>
-          </IconButton>
-        </Tooltip>
-
-
     </div>
   )
 }
