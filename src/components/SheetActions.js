@@ -30,11 +30,6 @@ return (
             <ExposureNeg1Icon fontSize='large' color='primary'></ExposureNeg1Icon>
           </IconButton>
         </Tooltip>
-        <Tooltip title="Listen" placement="top" arrow>
-          <IconButton aria-label="Listen" onClick={(play)}>
-            <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Remove last chord" placement="top" arrow>
           <IconButton aria-label="Remove last chord" onClick={removeLast}>
             <BackspaceIcon fontSize='large' color='primary'></BackspaceIcon>
@@ -45,13 +40,18 @@ return (
             <DeleteForeverIcon fontSize='large' color='primary'></DeleteForeverIcon>
           </IconButton>
         </Tooltip>
+        <Tooltip title="Listen" placement="top" arrow>
+          <IconButton aria-label="Listen" onClick={(play)}>
+            <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Load default song" placement="top" arrow>
           <IconButton aria-label="Load default song" onClick={loadDefault}>
             <LibraryMusicIcon fontSize='large' color='primary'></LibraryMusicIcon>
           </IconButton>
         </Tooltip>
-        <Tooltip title="Change model" placement="top" arrow>
-          <IconButton aria-label="Change model" onClick={showModelMenu}>
+        <Tooltip title="Change prediction model" placement="top" arrow>
+          <IconButton aria-label="Change prediction model" onClick={showModelMenu}>
             <AccountTreeRoundedIcon fontSize='large' color='primary'></AccountTreeRoundedIcon>
           </IconButton>
         </Tooltip>
