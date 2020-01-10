@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ConfirmationDialog = ({open,onNoClicked, onYesClicked}) => {
+const ConfirmationDialog = ({title, message,open,onNoClicked, onYesClicked}) => {
   return (
     <Dialog
     open={open}
@@ -21,10 +21,10 @@ const ConfirmationDialog = ({open,onNoClicked, onYesClicked}) => {
     aria-labelledby="alert-dialog-slide-title"
     aria-describedby="alert-dialog-slide-description"
     >
-    <DialogTitle id="alert-dialog-slide-title">{"Remove song clear"}</DialogTitle>
+    <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
     <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-        Do you really want to remove ALL chords from the song?
+        {message}
         </DialogContentText>
     </DialogContent>
     <DialogActions>

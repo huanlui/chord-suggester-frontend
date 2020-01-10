@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Composer from './components/Composer'
-import Chord from './utils/Chord';
 import { getChordSuggestions, getModel } from './utils/Model';
 import logo from './img/Logo3.png'
 import SocialIcons from './components/SocialIcons';
 import { CircularProgress } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import { Pachebel } from './utils/SongLibrary';
 
 /*
 TODO
@@ -42,14 +42,12 @@ const theme = createMuiTheme({
     },
   });
 
-const pachebel = ['D' ,'A' , 'Bm' , 'F#m' , 'G' , 'D'  ,'G',  'A'];
-const initialChords = pachebel.map(chordName => new Chord(chordName));
 
 const App = () => {
   document.body.style = 'background: #282c34;';
 
   const [model, setModel] = useState();
-  const [chords,setChords] = useState(initialChords)
+  const [chords,setChords] = useState(Pachebel);
   const [chordSuggestions, setChordSuggestions] = useState();
 
   useEffect(() => {
