@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tooltip, IconButton } from '@material-ui/core'
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -6,8 +6,23 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic'
+import AccountTreeRoundedIcon from '@material-ui/icons/AccountTreeRounded';
+import { ModelTypes } from '../utils/ModelTypes';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const SheetActions = ({play, removeLast, clear, transpose, loadDefault}) => {
+const SheetActions = ({play, removeLast, clear, transpose, loadDefault, modelType, setModelType}) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const showModelMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const selectModelType = (modelType) => {
+    setAnchorEl(null);
+    setModelType(modelType)
+  };
+
 return (
     <div>
         <Tooltip title="Transpose 1ST Down" placement="top" arrow>
@@ -31,15 +46,35 @@ return (
           </IconButton>
         </Tooltip>
         <Tooltip title="Load default song" placement="top" arrow>
-          <IconButton aria-label="Load default songn" onClick={loadDefault}>
+          <IconButton aria-label="Load default song" onClick={loadDefault}>
             <LibraryMusicIcon fontSize='large' color='primary'></LibraryMusicIcon>
           </IconButton>
         </Tooltip>
+        <Tooltip title="Change model" placement="top" arrow>
+          <IconButton aria-label="Change model" onClick={showModelMenu}>
+            <AccountTreeRoundedIcon fontSize='large' color='primary'></AccountTreeRoundedIcon>
+          </IconButton>
+        </Tooltip>
+        <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        
+      >
+        {Object.values(ModelTypes).map(type =>
+        <MenuItem 
+          style={{fontWeight: (modelType && modelType.name === type.name) ? 'bold' : 'normal'}}
+          onClick={() => selectModelType(type)}>{type.name}{(modelType && modelType.name === type.name)? " (selected) " : ""}
+        </MenuItem>)}
+      </Menu>
         <Tooltip title="Transpose 1ST Up" placement="top" arrow>
           <IconButton aria-label="Transpose 1ST Up" onClick={() => transpose(1)}>
             <ExposurePlus1Icon fontSize='large' color='primary'></ExposurePlus1Icon>
           </IconButton>
         </Tooltip>
+
+
     </div>
   )
 }

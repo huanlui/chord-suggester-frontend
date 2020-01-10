@@ -11,7 +11,7 @@ const Actions = {
   LOAD_DEFAULT: 'LOAD_DEFAULT'
 }
 
-const Composer = ({chordSuggestions,chords,setChords}) => {
+const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) => {
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [confirmationDialogTitle, setConfirmationDialogTitle] = useState('');
     const [confirmationDialogText, setConfirmationDialogText] = useState('');
@@ -57,6 +57,8 @@ const Composer = ({chordSuggestions,chords,setChords}) => {
             clear={clear}
             transpose={(semitones) => setChords(previousChords => previousChords.map(chord => chord.transpose(semitones))) }
             loadDefault={loadDefault}
+            modelType={modelType}
+            setModelType={setModelType}
           />
           <ChordSelector 
             chordSuggestions={chordSuggestions}

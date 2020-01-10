@@ -8,6 +8,7 @@ import SocialIcons from './components/SocialIcons';
 import { CircularProgress } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Pachebel } from './utils/SongLibrary';
+import { ModelTypes } from './utils/ModelTypes';
 
 /*
 TODO
@@ -47,23 +48,22 @@ const App = () => {
   document.body.style = 'background: #282c34;';
 
   const [model, setModel] = useState();
+  const [modelType, setModelType] = useState(ModelTypes.FromNormalisedData);
   const [chords,setChords] = useState(Pachebel);
   const [chordSuggestions, setChordSuggestions] = useState();
 
   useEffect(() => {
-    const modelPath = 'models/tfjs_model_lstm_normalised__W_20_lr_0_0005_epochs=50_batch_128.h5/model.json';
-    const weightPath = 'models/tfjs_model_lstm_normalised__W_20_lr_0_0005_epochs=50_batch_128.h5/group1-shard1of1.bin'
+    if(!modelType) return;
 
-    getModel(modelPath, weightPath).then(loadedModel => {
+    getModel(modelType.modelPath, modelType.weightPath).then(loadedModel => {
       setModel(loadedModel);
     });
-
-  }, [])
+  }, [modelType])
 
   useEffect(() => {
     if(!model) return;
 
-    const suggestions = getChordSuggestions(model, chords);
+    const suggestions = getChordSuggestions(model, chords, modelType.mustNormalise);
     setChordSuggestions(suggestions);
   }, [model, chords]);
  
@@ -84,7 +84,12 @@ const App = () => {
             >
               <Grid item xs={12}>    
                 {chordSuggestions ? 
-                <Composer chordSuggestions={chordSuggestions} chords={chords} setChords={setChords}></Composer>
+                <Composer 
+                 chordSuggestions={chordSuggestions}
+                 chords={chords}
+                 setChords={setChords}
+                 modelType={modelType}
+                 setModelType={setModelType}></Composer>
                 :         
                 <CircularProgress thickness={1} size={200}/>}
               </Grid>   

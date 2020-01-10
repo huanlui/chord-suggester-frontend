@@ -19,8 +19,8 @@ export const loadModel = async (modelFile, weightsFile) => {
     return loadedModel;
 }
 
-export const getChordSuggestions = (model, chords) => {
-      const chordsMean = getAverageValueInScale(chords) || 0;
+export const getChordSuggestions = (model, chords, mustNormalise) => {
+      const chordsMean = mustNormalise ? (getAverageValueInScale(chords) || 0) : 0;
       const chordNormalised = transpose(chords, -chordsMean);
       const numberSequence = chordNormalised.map(chord => ToNumber[chord.name])
       const sequenceWithFixedLength = ensureArrayLength(numberSequence,Constants.SequenceLength);
