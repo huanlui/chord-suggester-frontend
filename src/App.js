@@ -12,14 +12,18 @@ import { ModelTypes } from './utils/ModelTypes';
 
 /*
 TODO
-- tempo selector
-- Rellenar en fron más explicaciones aparte de la isntalación. 
-- Evaluar el modelo!!!!!
-- Hacer memoria básica en markdon o pdf. 
-- Hacer memoria o explicación en la misma página  /https://rexxars.github.io/react-markdown/?
-- Algún grafiquillo más bonito. 
-- Incluir dataset con todas las features. 
-- selector de modelo
+- hacer referencia a repo de front en el de back
+
+
+
+CHEKCS:
+
+- Has enviado el mensaje a basecamp.
+- Has enviado el enlace a los datos. 
+- Has indicado que hay dos repos
+- Has contrsuido el front definitovo y subiodo a guthub.io
+- Has incluido un pdf impreso de la memria y/o la pa'gina web fguardado de medium por si no se fian. 
+- Has includo una mencion a mediom en el readme.
 */
 
 const theme = createMuiTheme({

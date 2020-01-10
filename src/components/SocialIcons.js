@@ -3,6 +3,8 @@ import { Tooltip, IconButton, Link } from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import MailIcon from '@material-ui/icons/Mail';
+import DescriptionIcon from '@material-ui/icons/Description';
+
 const SocialIcons = () => {
 return (
     <div>
@@ -17,6 +19,13 @@ return (
           <IconButton aria-label="LinkedIn">    
                 <Link href={'https://www.linkedin.com/in/juan-luis-garc%C3%ADa-l%C3%B3pez-99057138/'}>
                   <LinkedInIcon fontSize='large' color='secondary'/>
+                </Link>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Medium Article" placement="top" arrow>
+          <IconButton aria-label="Medium Article">    
+                <Link href={'https://medium.com/@huanlui/chordsuggester-i-3a1261d4ea9e'}>
+                  <DescriptionIcon fontSize='large' color='secondary'/>
                 </Link>
           </IconButton>
         </Tooltip>
