@@ -10,22 +10,6 @@ import { Grid } from '@material-ui/core';
 import { Pachebel } from './utils/SongLibrary';
 import { ModelTypes } from './utils/ModelTypes';
 
-/*
-TODO
-- hacer referencia a repo de front en el de back
-
-
-
-CHEKCS:
-
-- Has enviado el mensaje a basecamp.
-- Has enviado el enlace a los datos. 
-- Has indicado que hay dos repos
-- Has contrsuido el front definitovo y subiodo a guthub.io
-- Has incluido un pdf impreso de la memria y/o la pa'gina web fguardado de medium por si no se fian. 
-- Has includo una mencion a mediom en el readme.
-*/
-
 const theme = createMuiTheme({
     palette: {
       text: {
