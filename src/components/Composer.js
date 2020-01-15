@@ -51,7 +51,7 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
 
     return (
         <>
-          <Sheet chords={chords} currentChord={currentChord}></Sheet>
+          <Sheet chords={chords} currentChord={currentChord} baseChord={chords.length > 0 ? chords[0] : undefined}></Sheet>
             {!currentChord ? 
             <>
               <SheetActions 
@@ -69,7 +69,7 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
               />
             </>
             :
-            <FifthCircle selectedChord={currentChord}></FifthCircle>
+            <FifthCircle selectedChord={currentChord} baseChord={chords.length > 0 ? chords[0] : undefined}></FifthCircle>
             }
             <ConfirmationDialog 
               title={confirmationDialogTitle} 
