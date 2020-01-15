@@ -1,4 +1,4 @@
-import Chord from './Chord'
+import Chord, { ChordFunction } from './Chord'
 
 describe('Chord', () => {
     it.each`
@@ -42,5 +42,37 @@ describe('Chord', () => {
         const sut = new Chord(name);
 
         expect(sut.notes).toEqual(expected_notes);
+    });
+
+    it.each`
+    baseChord   | chord2      | expectedStep
+    ${'C'}      | ${'C'}      | ${0}
+    ${'C'}      | ${'Am'}     | ${0}
+    ${'C'}      | ${'F'}      | ${-1}
+    ${'C'}      | ${'G'}      | ${1}
+    ${'C'}      | ${'D'}      | ${2}
+    ${'C'}      | ${'Cm'}     | ${-3}
+    ${'Cm'}     | ${'C'}      | ${3}
+    `('"$chord2" has a step of $expectedStep respecting to "$chord1"', ({baseChord, chord2, expectedStep}) => {
+        const base = new Chord(baseChord);
+        const sut2 = new Chord(chord2);
+
+        expect(sut2.getStepsIn5CircleRespectingTo(base)).toEqual(expectedStep);
+    });
+
+    it.each`
+    baseChord   | chord2      | expectedFunction
+    ${'C'}      | ${'C'}      | ${ChordFunction.Neutral}
+    ${'C'}      | ${'Am'}     | ${ChordFunction.Subdominant}
+    ${'C'}      | ${'F'}      | ${ChordFunction.Subdominant}
+    ${'C'}      | ${'G'}      | ${ChordFunction.Dominant}
+    ${'C'}      | ${'D'}      | ${ChordFunction.Dominant}
+    ${'C'}      | ${'Cm'}     | ${ChordFunction.Subdominant}
+    ${'Cm'}     | ${'C'}      | ${ChordFunction.Dominant}
+    `('"$chord2" has a step of $expectedStep respecting to "$chord1"', ({baseChord, chord2, expectedFunction}) => {
+        const base = new Chord(baseChord);
+        const sut2 = new Chord(chord2);
+
+        expect(sut2.getFunctionRespectingTo(base)).toEqual(expectedFunction);
     });
 });
