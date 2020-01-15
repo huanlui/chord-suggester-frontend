@@ -4,6 +4,12 @@ import ToNote from '../dictionaries/value_to_note'
 import Constants from '../utils/Constants'
 import * as Vex from 'vexflow'
 
+export const ChordFunction = {
+    Dominant: "Dominant",
+    Subdominant: "Subdominant",
+    Neutral: "Neutral"
+};
+
 export default class Chord {
     constructor(name) {
         const containsAccidental = name.length > 1 && (name[1] === '#' || name[1] === 'b');
@@ -29,14 +35,42 @@ export default class Chord {
         return quality_components.indexOf(3) === -1;
     }
 
-    getXYPositionIn5thCircle() {
+    getPositionIn5Circle() {
         let rootValue = ToNumber[this.root_name];
         rootValue = this.isMajor() ? rootValue : (rootValue + 3) % Constants.NumberOfNotes;
 
-        const position_in_5th_circle = (rootValue * 7) % Constants.NumberOfNotes;
+        return (rootValue * 7) % Constants.NumberOfNotes;
+    }
+
+    getStepsIn5CircleRespectingTo(baseChord) {
+        const distance = this.getPositionIn5Circle() - baseChord.getPositionIn5Circle();
+
+        if(distance > Constants.NumberOfNotes / 2) {
+            return distance -  Constants.NumberOfNotes;
+        }
+
+        if(distance <= - Constants.NumberOfNotes / 2) {
+            return distance + Constants.NumberOfNotes;
+        }
+
+        return distance;
+    }
+
+    getFunctionRespectingTo(baseChord) {
+        const distance = this.getStepsIn5CircleRespectingTo(baseChord);
+
+        if(distance > 0) return ChordFunction.Dominant;
+        if(distance < 0) return ChordFunction.Subdominant;
+
+        if(this.root_name === baseChord.root_name) return ChordFunction.Neutral;
+    
+        return this.isMajor() ? ChordFunction.Dominant : ChordFunction.Subdominant;
+    }
+
+    getXYPositionIn5thCircle() {       
         const step_angle = 360.0 / Constants.NumberOfNotes;
 
-        const angle_in_5th_circle_degrees = position_in_5th_circle * step_angle;
+        const angle_in_5th_circle_degrees = this.getPositionIn5Circle() * step_angle;
 
         const angle_in_5th_circle_radians = (angle_in_5th_circle_degrees * Math.PI) / 180
 
