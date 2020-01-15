@@ -23,13 +23,15 @@ export default class Chord {
         return new Chord(chordName);
     }
 
-    getXYPositionIn5thCircle() {
+    isMajor() {
         const quality_components = ToComponents[this.quality_name];
 
-        const isMajor = quality_components.indexOf(3) === -1;
+        return quality_components.indexOf(3) === -1;
+    }
 
+    getXYPositionIn5thCircle() {
         let rootValue = ToNumber[this.root_name];
-        rootValue = isMajor ? rootValue : (rootValue + 3) % Constants.NumberOfNotes;
+        rootValue = this.isMajor() ? rootValue : (rootValue + 3) % Constants.NumberOfNotes;
 
         const position_in_5th_circle = (rootValue * 7) % Constants.NumberOfNotes;
         const step_angle = 360.0 / Constants.NumberOfNotes;
