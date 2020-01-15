@@ -29,7 +29,7 @@ const CustomChordCard = ({addChord}) => {
 
     useEffect(() => {
       const div = document.getElementById(randomId);
-      drawChords([customChord], div,sheetWidth, sheetHeight);
+      drawChords([customChord],null, div,sheetWidth, sheetHeight);
     }, [customChord, randomId])
 
     return (
