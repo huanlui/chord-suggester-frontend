@@ -6,7 +6,6 @@ import FifthCircle from './FifthCircle';
 import { playChords } from '../utils/Player';
 import ConfirmationDialog from './ConfirmationDialog';
 import { Pachebel } from '../utils/SongLibrary';
-import Chord from '../utils/Chord';
 
 const Actions = {
   CLEAR: 'CLEAR',
@@ -18,11 +17,8 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     const [confirmationDialogTitle, setConfirmationDialogTitle] = useState('');
     const [confirmationDialogText, setConfirmationDialogText] = useState('');
     const [actionToConfirm, setActionToConfirm] = useState(null);
-    const [currentChord,setCurrentChord] = useState(new Chord('Cm'));
-
-    useEffect(() => {
-     setTimeout(() => setCurrentChord(previous => previous.transpose(1)), 1000); 
-    })
+    const [currentChord,setCurrentChord] = useState(undefined);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const clear = () => {
       setActionToConfirm(Actions.CLEAR)
@@ -58,27 +54,32 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     return (
         <>
           <Sheet chords={chords}></Sheet>
-          <SheetActions 
-            play={() => playChords(chords)}
-            removeLast={() => setChords(previousChords => previousChords.slice(0, -1) )}
-            clear={clear}
-            transpose={(semitones) => setChords(previousChords => previousChords.map(chord => chord.transpose(semitones))) }
-            loadDefault={loadDefault}
-            modelType={modelType}
-            setModelType={setModelType}
-          />
-          <ChordSelector 
-            chordSuggestions={chordSuggestions}
-            addChord={(chord) => setChords(previousChords => [...previousChords, chord])}
-          />
-          <FifthCircle selectedChord={currentChord}></FifthCircle>
-         <ConfirmationDialog 
-          title={confirmationDialogTitle} 
-          message={confirmationDialogText} 
-          open={confirmDialogOpen} 
-          onYesClicked={onClearConfirmed} 
-          onNoClicked={onClearCanceled}
-         />
+            {!isPlaying ? 
+            <>
+              <SheetActions 
+                play={() => playChords(chords, setIsPlaying, setCurrentChord)}
+                removeLast={() => setChords(previousChords => previousChords.slice(0, -1) )}
+                clear={clear}
+                transpose={(semitones) => setChords(previousChords => previousChords.map(chord => chord.transpose(semitones))) }
+                loadDefault={loadDefault}
+                modelType={modelType}
+                setModelType={setModelType}
+              />
+              <ChordSelector 
+                chordSuggestions={chordSuggestions}
+                addChord={(chord) => setChords(previousChords => [...previousChords, chord])}
+              />
+            </>
+            :
+            <FifthCircle selectedChord={currentChord}></FifthCircle>
+            }
+            <ConfirmationDialog 
+              title={confirmationDialogTitle} 
+              message={confirmationDialogText} 
+              open={confirmDialogOpen} 
+              onYesClicked={onClearConfirmed} 
+              onNoClicked={onClearCanceled}
+            />
         </>
     );
 }
