@@ -5,7 +5,8 @@ import SheetActions from './SheetActions';
 import FifthCircle from './FifthCircle';
 import { playChords } from '../utils/Player';
 import ConfirmationDialog from './ConfirmationDialog';
-import { Pachebel } from '../utils/SongLibrary';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Tooltip, IconButton } from '@material-ui/core'
 
 const Actions = {
   CLEAR: 'CLEAR',
@@ -18,6 +19,7 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     const [confirmationDialogText, setConfirmationDialogText] = useState('');
     const [actionToConfirm, setActionToConfirm] = useState(null);
     const [currentChord,setCurrentChord] = useState(undefined);
+    const [force5thCircleView, setForce5thCircleView] = useState(false);
 
     const clear = () => {
       setActionToConfirm(Actions.CLEAR)
@@ -26,8 +28,8 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
       setConfirmDialogOpen(true);
     }
 
-    const loadDefault = () => {
-      setActionToConfirm(Actions.LOAD_DEFAULT)
+    const loadDefault = (song) => {
+      setActionToConfirm(song)
       setConfirmationDialogTitle('Confirm song load');
       setConfirmationDialogText('Do you really want to load the song from library? ALL previous chords will be removed?');
       setConfirmDialogOpen(true);
@@ -36,11 +38,10 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     const onClearConfirmed = () => {
       if(actionToConfirm === Actions.CLEAR) {
         setChords([]);
+      } else {
+        setChords(actionToConfirm)
       }
-
-      if(actionToConfirm === Actions.LOAD_DEFAULT) {
-        setChords(Pachebel)
-      }
+      
       setConfirmDialogOpen(false);
     }
 
@@ -52,7 +53,20 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     return (
         <>
           <Sheet chords={chords} currentChord={currentChord} baseChord={chords.length > 0 ? chords[0] : undefined}></Sheet>
-            {!currentChord ? 
+            {currentChord || force5thCircleView ? 
+            <>
+              {!currentChord ?
+                <div>
+                  <Tooltip style={{marginBottom:-40}} title="Hide 5th circle view" placement="top" arrow>
+                    <IconButton aria-label="Hide 5th circle view" onClick={() => setForce5thCircleView(false)}>
+                      <ArrowBackIcon fontSize='large' color='primary'></ArrowBackIcon>
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              : null}
+              <FifthCircle selectedChord={currentChord} baseChord={chords.length > 0 ? chords[0] : undefined}></FifthCircle>
+            </>
+            :
             <>
               <SheetActions 
                 play={() => playChords(chords, setCurrentChord)}
@@ -62,14 +76,14 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
                 loadDefault={loadDefault}
                 modelType={modelType}
                 setModelType={setModelType}
+                force5thCircleView={force5thCircleView}
+                setForce5thCircleView={setForce5thCircleView}
               />
               <ChordSelector 
                 chordSuggestions={chordSuggestions}
                 addChord={(chord) => setChords(previousChords => [...previousChords, chord])}
               />
             </>
-            :
-            <FifthCircle selectedChord={currentChord} baseChord={chords.length > 0 ? chords[0] : undefined}></FifthCircle>
             }
             <ConfirmationDialog 
               title={confirmationDialogTitle} 
