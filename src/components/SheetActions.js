@@ -10,17 +10,29 @@ import AccountTreeRoundedIcon from '@material-ui/icons/AccountTreeRounded';
 import { ModelTypes } from '../utils/ModelTypes';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import * as SongLibrary from '../utils/SongLibrary';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 
-const SheetActions = ({play, removeLast, clear, transpose, loadDefault, modelType, setModelType}) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+const SheetActions = ({play, removeLast, clear, transpose, loadDefault, modelType, setModelType, force5thCircleView, setForce5thCircleView}) => {
+  const [anchorModel, setAnchorModel] = useState(null);
+  const [anchorSong, setAnchorSong] = useState(null);
 
   const showModelMenu = event => {
-    setAnchorEl(event.currentTarget);
+    setAnchorModel(event.currentTarget);
   };
 
   const selectModelType = (modelType) => {
-    setAnchorEl(null);
+    setAnchorModel(null);
     setModelType(modelType)
+  };
+
+  const showSongMenu = event => {
+    setAnchorSong(event.currentTarget);
+  };
+
+  const selectSong = (song) => {
+    setAnchorSong(null);
+    loadDefault(song)
   };
 
 return (
@@ -45,8 +57,13 @@ return (
             <PlayCircleOutlineIcon fontSize='large' color='primary'></PlayCircleOutlineIcon>
           </IconButton>
         </Tooltip>
+        <Tooltip title="Show 5th circle" placement="top" arrow>
+          <IconButton aria-label="Show 5th circle" onClick={() => setForce5thCircleView(previousValue => !previousValue)}>
+            <RadioButtonCheckedIcon fontSize='large' color='primary'></RadioButtonCheckedIcon>
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Load default song" placement="top" arrow>
-          <IconButton aria-label="Load default song" onClick={loadDefault}>
+          <IconButton aria-label="Load default song" onClick={showSongMenu}>
             <LibraryMusicIcon fontSize='large' color='primary'></LibraryMusicIcon>
           </IconButton>
         </Tooltip>
@@ -62,17 +79,32 @@ return (
         </Tooltip>
 
         <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
+        id="model-menu"
+        anchorEl={anchorModel}
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
+        open={Boolean(anchorModel)}
+        onClose={() => setAnchorModel(null)}
       >
         {Object.values(ModelTypes).map( (type, index) =>
         <MenuItem 
           key={index}
           style={{fontWeight: (modelType && modelType.name === type.name) ? 'bold' : 'normal'}}
           onClick={() => selectModelType(type)}>{type.name}{(modelType && modelType.name === type.name)? " (selected) " : ""}
+        </MenuItem>)}
+      </Menu>
+
+
+      <Menu
+        id="song-menu"
+        anchorEl={anchorSong}
+        keepMounted
+        open={Boolean(anchorSong)}
+        onClose={() => setAnchorSong(null)}
+      >
+        {Object.keys(SongLibrary).map( (key, index) =>
+        <MenuItem 
+          key={index}
+          onClick={() => selectSong(SongLibrary[key])}>{key}
         </MenuItem>)}
       </Menu>
     </div>
