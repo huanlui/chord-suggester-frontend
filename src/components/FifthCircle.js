@@ -6,7 +6,8 @@ const FifthCircle = ({selectedChord}) => {
 
    const getFill = (root,isMajor) => {
       index++;
-      const isSelected = selectedChord.root_name === root && 
+      const isSelected = selectedChord &&
+                         selectedChord.root_name === root && 
                            selectedChord.isMajor() === isMajor;
       if(isSelected) {
          return 'red';

@@ -32,7 +32,7 @@ const stopIt = () => {
     }
 }
 
-const playChords = (chords) => {
+const playChords = (chords, setIsPlaying, setCurrentChord) => {
     stopIt();
 
     polySynth = new Tone.PolySynth(6, Tone.Synth, {
@@ -47,14 +47,20 @@ const playChords = (chords) => {
     polySynth.set("detune", -1200);
 
     const convertedChords = chords.map( (chord, index) => [index, chord.notes]);
-
+    let index = 0;
     chordPart = new Tone.Part(function(time, chordNotes){
-		polySynth.triggerAttackRelease(chordNotes, "2n", time);
+        setCurrentChord(chords[index]);
+        polySynth.triggerAttackRelease(chordNotes, "2n", time);
+        index++;
+        if(index === chords.length) {
+            setTimeout(() => setIsPlaying(false),2000);
+        }
 	}, convertedChords ).start(0);
 
 	chordPart.loop = false;
 
-	Tone.Transport.start();
+    Tone.Transport.start();
+    setIsPlaying(true);
 }
 
 export { playChord, playChords};
