@@ -1,6 +1,6 @@
 import * as Vex from 'vexflow'
 
-const drawChords = (chords, div, width, height, showCaption) => {
+const drawChords = (chords, currentChord, div, width, height, showCaption) => {
     const VF = Vex.Flow;
     
     div.innerHTML = '';
@@ -19,7 +19,8 @@ const drawChords = (chords, div, width, height, showCaption) => {
     
     stave.setContext(context).draw();
     
-    const notes = chords.map(chord => chord.toVexChord(showCaption))
+    const notes = chords.map(chord => 
+                        chord.toVexChord(showCaption, chord === currentChord))
     
     var voice = new VF.Voice({num_beats: 4 * chords.length,  beat_value: 4});
     voice.addTickables(notes);

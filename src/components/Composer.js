@@ -18,7 +18,6 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     const [confirmationDialogText, setConfirmationDialogText] = useState('');
     const [actionToConfirm, setActionToConfirm] = useState(null);
     const [currentChord,setCurrentChord] = useState(undefined);
-    const [isPlaying, setIsPlaying] = useState(false);
 
     const clear = () => {
       setActionToConfirm(Actions.CLEAR)
@@ -40,7 +39,6 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
       }
 
       if(actionToConfirm === Actions.LOAD_DEFAULT) {
-        console.log('Pachebel', Pachebel)
         setChords(Pachebel)
       }
       setConfirmDialogOpen(false);
@@ -53,11 +51,11 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
 
     return (
         <>
-          <Sheet chords={chords}></Sheet>
-            {!isPlaying ? 
+          <Sheet chords={chords} currentChord={currentChord}></Sheet>
+            {!currentChord ? 
             <>
               <SheetActions 
-                play={() => playChords(chords, setIsPlaying, setCurrentChord)}
+                play={() => playChords(chords, setCurrentChord)}
                 removeLast={() => setChords(previousChords => previousChords.slice(0, -1) )}
                 clear={clear}
                 transpose={(semitones) => setChords(previousChords => previousChords.map(chord => chord.transpose(semitones))) }

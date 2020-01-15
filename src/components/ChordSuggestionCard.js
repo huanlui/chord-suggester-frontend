@@ -26,7 +26,7 @@ const ChordSuggestionCard = ({suggestion, addChord}) => {
 
     useEffect(() => {
       const div = document.getElementById(randomId);
-      drawChords([chord],div,sheetWidth,sheetHeight);
+      drawChords([chord],null,div,sheetWidth,sheetHeight);
     }, [chord, randomId])
 
     return (

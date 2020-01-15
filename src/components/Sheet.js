@@ -17,13 +17,13 @@ const sheetWidth = 1100;
 const sheetHeight = 120;
 const divId = 'sheet-div';
 
-const Sheet = ({chords}) => {
+const Sheet = ({chords, currentChord}) => {
     const classes = useStyles();
 
     useEffect(() => {
       var div = document.getElementById(divId)
-      drawChords(chords, div, sheetWidth, sheetHeight,true);
-    }, [chords])
+      drawChords(chords,currentChord, div, sheetWidth, sheetHeight,true);
+    }, [chords, currentChord])
 
     return (
         <Paper className={classes.paper}>

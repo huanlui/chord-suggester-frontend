@@ -32,7 +32,7 @@ const stopIt = () => {
     }
 }
 
-const playChords = (chords, setIsPlaying, setCurrentChord) => {
+const playChords = (chords, setCurrentChord) => {
     stopIt();
 
     polySynth = new Tone.PolySynth(6, Tone.Synth, {
@@ -53,14 +53,13 @@ const playChords = (chords, setIsPlaying, setCurrentChord) => {
         polySynth.triggerAttackRelease(chordNotes, "2n", time);
         index++;
         if(index === chords.length) {
-            setTimeout(() => setIsPlaying(false),2000);
+            setTimeout(() => setCurrentChord(null),2000);
         }
 	}, convertedChords ).start(0);
 
 	chordPart.loop = false;
 
     Tone.Transport.start();
-    setIsPlaying(true);
 }
 
 export { playChord, playChords};
