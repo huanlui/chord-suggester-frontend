@@ -1,7 +1,8 @@
 import React from 'react';
+import { getRelativeChordColor } from '../utils/Colors';
 
 
-const FifthCircle = ({selectedChord}) => {
+const FifthCircle = ({selectedChord, baseChord}) => {
    let index = -1;
 
    const getFill = (root,isMajor) => {
@@ -10,7 +11,7 @@ const FifthCircle = ({selectedChord}) => {
                          selectedChord.root_name === root && 
                            selectedChord.isMajor() === isMajor;
       if(isSelected) {
-         return 'red';
+         return getRelativeChordColor(selectedChord, baseChord);
       } 
 
       if(isMajor) {
@@ -19,8 +20,6 @@ const FifthCircle = ({selectedChord}) => {
 
       return index % 2 === 0  ? '#E1E1E1' : 'white';
    }
-
-
 
    return (<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720">
       <path fill="#FFF" d="M517.594 89.238C368 2.87 176.728 54.102 90.374 203.668L361.24 360.052 517.594 89.238z" />
