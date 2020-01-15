@@ -101,7 +101,7 @@ export default class Chord {
         return notes;
     }
 
-    toVexChord(showCaption, isSelected) {
+    toVexChord(showCaption, color) {
         const VF = Vex.Flow;
 
         const plainNotes = this.notes.map(noteName => `${noteName[0]}/${noteName[noteName.length -1]}`); //G#4 -> G/4 
@@ -113,9 +113,7 @@ export default class Chord {
 
         const result = new VF.StaveNote({clef: "treble", keys: plainNotes, duration: "w" })
         
-        if(isSelected) {
-            result.setStyle({fillStyle: "red", strokeStyle: "red"});
-        }
+        result.setStyle({fillStyle: color, strokeStyle: color});
         
         if(showCaption) {
             result.addModifier(0, new Vex.Flow.Annotation(this.name).setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.TOP));
