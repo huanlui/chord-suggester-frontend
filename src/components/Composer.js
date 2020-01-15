@@ -1,10 +1,12 @@
 import ChordSelector from './ChordSelector';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Sheet from './Sheet';
 import SheetActions from './SheetActions';
+import FifthCircle from './FifthCircle';
 import { playChords } from '../utils/Player';
 import ConfirmationDialog from './ConfirmationDialog';
 import { Pachebel } from '../utils/SongLibrary';
+import Chord from '../utils/Chord';
 
 const Actions = {
   CLEAR: 'CLEAR',
@@ -16,6 +18,11 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
     const [confirmationDialogTitle, setConfirmationDialogTitle] = useState('');
     const [confirmationDialogText, setConfirmationDialogText] = useState('');
     const [actionToConfirm, setActionToConfirm] = useState(null);
+    const [currentChord,setCurrentChord] = useState(new Chord('Cm'));
+
+    useEffect(() => {
+     setTimeout(() => setCurrentChord(previous => previous.transpose(1)), 1000); 
+    })
 
     const clear = () => {
       setActionToConfirm(Actions.CLEAR)
@@ -64,6 +71,7 @@ const Composer = ({chordSuggestions,chords,setChords,modelType, setModelType}) =
             chordSuggestions={chordSuggestions}
             addChord={(chord) => setChords(previousChords => [...previousChords, chord])}
           />
+          <FifthCircle selectedChord={currentChord}></FifthCircle>
          <ConfirmationDialog 
           title={confirmationDialogTitle} 
           message={confirmationDialogText} 

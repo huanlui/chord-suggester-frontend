@@ -68,8 +68,9 @@ return (
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        {Object.values(ModelTypes).map(type =>
+        {Object.values(ModelTypes).map( (type, index) =>
         <MenuItem 
+          key={index}
           style={{fontWeight: (modelType && modelType.name === type.name) ? 'bold' : 'normal'}}
           onClick={() => selectModelType(type)}>{type.name}{(modelType && modelType.name === type.name)? " (selected) " : ""}
         </MenuItem>)}
