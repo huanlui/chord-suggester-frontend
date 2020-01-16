@@ -39,6 +39,8 @@ export const getChordSuggestions = (model, chords, mustNormalise) => {
             chord:new Chord(ToChord[index+1]).transpose(chordsMean)
           }));
       chordProbabilities = chordProbabilities.sort( (left, right) => right.probability - left.probability);
+
+      console.log(chordProbabilities);
       chordProbabilities = chordProbabilities.slice(0,Constants.SuggestedChordNumber);
       
       return chordProbabilities;
