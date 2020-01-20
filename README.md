@@ -9,7 +9,7 @@ This repository contains the frontend for the DataScience project developed on h
 
 # User interface manual
 
-![Look&Feel of the application](.doc/user-manual.png)
+![Look&Feel of the application](./doc/user-manual.png)
 
 1. Sheet where our composition is shown. In this case we can see the chords of Pachebel’s Canon (they appear by default).
 2. The most probable chord suggested by the model.
