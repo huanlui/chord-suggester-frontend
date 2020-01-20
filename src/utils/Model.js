@@ -30,7 +30,7 @@ export const getChordSuggestions = (model, chords, mustNormalise) => {
       const values = prediction.dataSync();
 
       const probabilities = Array.from(values);
-      probabilities.shift() //Remove probabiliy for null chord
+      probabilities.shift() //Remove probability for null chord
 
       let chordProbabilities = probabilities.map((value,index) => (
           {
