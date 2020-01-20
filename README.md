@@ -1,12 +1,35 @@
 
 # Chord Suggester (frontend)
 
+**Initial note**: For a detailed memory about the scope of this project, please visit this [article at `Medium`](https://medium.com/@huanlui/chordsuggester-i-3a1261d4ea9e).
+
 This repository contains the frontend for the DataScience project developed on https://github.com/huanlui/chord-suggester. 
 
 [Live Demo](http://huanlui.github.io)
 
-It allows user to:
-- Add
+# User interface manual
+
+![Look&Feel of the application](.doc/user-manual.png)
+
+1. Sheet where our composition is shown. In this case we can see the chords of Pachebel’s Canon (they appear by default).
+2. The most probable chord suggested by the model.
+3. The second most probable chord suggested by the model.
+4. Probability calculated by the model for C chord.
+5. Click to listen C chord.
+6. Click to add C chord to the sheet (1).
+7. Click to choose a custom chord (it can be played or added by using the analogous buttons).
+8. Transpose the sheet one semitone down.
+9. Transpose the sheet one semitone up.
+10. Remove last chord from sheet.
+11. Clear the whole sheet.
+12. Plays the song.
+13. Loads default composition (Pachebel’s canon).
+14. Switches from two models (one trained with normalised data, default, and other trained with non-normalised data).
+
+To listen the songs, [Tone.js](https://tonejs.github.io/) has been used.
+To show the sheets, [VexFlow](https://github.com/0xfe/vexflow) has been used.
+
+# Installation
 
 ## Requirements
 
