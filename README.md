@@ -1,7 +1,7 @@
 
 # Chord Suggester (frontend)
 
-**Initial note**: For a detailed memory about the scope of this project, please visit this [article at `Medium`](https://medium.com/@huanlui/chordsuggester-i-3a1261d4ea9e).
+**Initial note**: For a detailed memory about the scope of this project, please visit [this article at `Medium`](https://medium.com/@huanlui/chordsuggester-i-3a1261d4ea9e).
 
 This repository contains the frontend for the DataScience project developed on https://github.com/huanlui/chord-suggester. 
 
